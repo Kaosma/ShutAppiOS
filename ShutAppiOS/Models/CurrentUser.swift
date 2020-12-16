@@ -16,7 +16,7 @@ class CurrentUser {
 
     var email : String {
         var userEmail = ""
-        if let fetchedEmail = Auth.auth().currentUser!.email {
+        if let fetchedEmail = Auth.auth().currentUser?.email {
             userEmail = fetchedEmail
         }
         return userEmail
@@ -58,26 +58,30 @@ class CurrentUser {
     
     //deleting Current User Auth
     func deleteUser() {
-        let user = Auth.auth().currentUser
-        user?.delete { error in
-          if let error = error {
-            print(error)          }
-            else {
-            print("User was successfully deleted")
-          }
-        }
+
         
         //deleting current user from users Collection
-        let docRef = self.db.collection("users").document(email)
+        let docRef = self.db.collection("users").document(self.email)
         docRef.delete { error in
-          if let error = error {
-            print(error)            }
+            if let error = error {
+                print(error)            }
             else {
-                print("User was successfully deleted")
-          }
+                
+                let user = Auth.auth().currentUser
+                user?.delete { error in
+                    if let error = error {
+                        print(error)          }
+                    else {
+                        print("User was successfully deleted")
+                        self.signOutCurrentUser()
+                    }
+                    
+                }
+                
+            }
+            
         }
     }
-    
     //SignOUt Current User
     func signOutCurrentUser() {
         do {
@@ -97,11 +101,8 @@ class CurrentUser {
             }else{
                 print("Password was sent successfully")
             }
-            do {
-                try Auth.auth().signOut()
-                } catch let err {
-                    print(err)
-            }
+            self.signOutCurrentUser()
         }
     }
+
 }

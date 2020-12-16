@@ -22,6 +22,7 @@ class SettingsViewController: UIViewController {
     //Delete user Button
     @IBAction func pressedDeleteButton(_ sender: UIButton) {
         self.currentUser.deleteUser()
+        self.performSegue(withIdentifier: "signOutBackToLogin", sender: self)
     }
     
     //Reset password button
