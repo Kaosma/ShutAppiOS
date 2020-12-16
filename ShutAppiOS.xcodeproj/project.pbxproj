@@ -3,10 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0CFE556ECDEA9AD19FF386C9 /* Pods_ShutAppiOS_ShutAppiOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F5A51BCFF43793AEBA190FA /* Pods_ShutAppiOS_ShutAppiOSUITests.framework */; };
+		82D712410F43895AC76DCDAA /* Pods_ShutAppiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD7A8891FA4430B3741EDD5E /* Pods_ShutAppiOS.framework */; };
+		DCDE9D901A3AFB92B80B0982 /* Pods_ShutAppiOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 747C3590C15EE46E058E77D4 /* Pods_ShutAppiOSTests.framework */; };
 		FBA412FF258A19ED0045B1B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA412FE258A19ED0045B1B5 /* AppDelegate.swift */; };
 		FBA41301258A19ED0045B1B5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA41300258A19ED0045B1B5 /* SceneDelegate.swift */; };
 		FBA41306258A19ED0045B1B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBA41304258A19ED0045B1B5 /* Main.storyboard */; };
@@ -27,6 +30,7 @@
 		FBA41343258A1CF70045B1B5 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA41342258A1CF70045B1B5 /* Message.swift */; };
 		FBA41345258A1D230045B1B5 /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA41344258A1D230045B1B5 /* Sender.swift */; };
 		FBA41347258A1D400045B1B5 /* MyMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA41346258A1D400045B1B5 /* MyMessages.swift */; };
+		FBA41349258A1ED40045B1B5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FBA41348258A1ED40045B1B5 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +51,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		21B7022B1096494381DE0670 /* Pods-ShutAppiOS-ShutAppiOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShutAppiOS-ShutAppiOSUITests.debug.xcconfig"; path = "Target Support Files/Pods-ShutAppiOS-ShutAppiOSUITests/Pods-ShutAppiOS-ShutAppiOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		2BEA91872FE37661A1CB93DC /* Pods-ShutAppiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShutAppiOS.debug.xcconfig"; path = "Target Support Files/Pods-ShutAppiOS/Pods-ShutAppiOS.debug.xcconfig"; sourceTree = "<group>"; };
+		39886DC0886E7EA2BDDC75BF /* Pods-ShutAppiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShutAppiOS.release.xcconfig"; path = "Target Support Files/Pods-ShutAppiOS/Pods-ShutAppiOS.release.xcconfig"; sourceTree = "<group>"; };
+		747C3590C15EE46E058E77D4 /* Pods_ShutAppiOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShutAppiOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F5A51BCFF43793AEBA190FA /* Pods_ShutAppiOS_ShutAppiOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShutAppiOS_ShutAppiOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E2AEF9D54CC294C0A0F775C /* Pods-ShutAppiOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShutAppiOSTests.release.xcconfig"; path = "Target Support Files/Pods-ShutAppiOSTests/Pods-ShutAppiOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		BEDB006F80DF0353EA34841E /* Pods-ShutAppiOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShutAppiOSTests.debug.xcconfig"; path = "Target Support Files/Pods-ShutAppiOSTests/Pods-ShutAppiOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		FA507366714E735706959FC3 /* Pods-ShutAppiOS-ShutAppiOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShutAppiOS-ShutAppiOSUITests.release.xcconfig"; path = "Target Support Files/Pods-ShutAppiOS-ShutAppiOSUITests/Pods-ShutAppiOS-ShutAppiOSUITests.release.xcconfig"; sourceTree = "<group>"; };
 		FBA412FB258A19ED0045B1B5 /* ShutAppiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShutAppiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBA412FE258A19ED0045B1B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FBA41300258A19ED0045B1B5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -73,6 +85,8 @@
 		FBA41342258A1CF70045B1B5 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		FBA41344258A1D230045B1B5 /* Sender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sender.swift; sourceTree = "<group>"; };
 		FBA41346258A1D400045B1B5 /* MyMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMessages.swift; sourceTree = "<group>"; };
+		FBA41348258A1ED40045B1B5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FD7A8891FA4430B3741EDD5E /* Pods_ShutAppiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShutAppiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82D712410F43895AC76DCDAA /* Pods_ShutAppiOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +102,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCDE9D901A3AFB92B80B0982 /* Pods_ShutAppiOSTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,12 +110,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0CFE556ECDEA9AD19FF386C9 /* Pods_ShutAppiOS_ShutAppiOSUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		224B3D59D3B623470007DA1F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2BEA91872FE37661A1CB93DC /* Pods-ShutAppiOS.debug.xcconfig */,
+				39886DC0886E7EA2BDDC75BF /* Pods-ShutAppiOS.release.xcconfig */,
+				21B7022B1096494381DE0670 /* Pods-ShutAppiOS-ShutAppiOSUITests.debug.xcconfig */,
+				FA507366714E735706959FC3 /* Pods-ShutAppiOS-ShutAppiOSUITests.release.xcconfig */,
+				BEDB006F80DF0353EA34841E /* Pods-ShutAppiOSTests.debug.xcconfig */,
+				9E2AEF9D54CC294C0A0F775C /* Pods-ShutAppiOSTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		A6F9FBDC30C5FC1623E89DDA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FD7A8891FA4430B3741EDD5E /* Pods_ShutAppiOS.framework */,
+				7F5A51BCFF43793AEBA190FA /* Pods_ShutAppiOS_ShutAppiOSUITests.framework */,
+				747C3590C15EE46E058E77D4 /* Pods_ShutAppiOSTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		FBA412F2258A19ED0045B1B5 = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +147,8 @@
 				FBA41314258A19EF0045B1B5 /* ShutAppiOSTests */,
 				FBA4131F258A19EF0045B1B5 /* ShutAppiOSUITests */,
 				FBA412FC258A19ED0045B1B5 /* Products */,
+				224B3D59D3B623470007DA1F /* Pods */,
+				A6F9FBDC30C5FC1623E89DDA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -129,6 +171,7 @@
 				FBA41307258A19EF0045B1B5 /* Assets.xcassets */,
 				FBA41309258A19EF0045B1B5 /* LaunchScreen.storyboard */,
 				FBA4130C258A19EF0045B1B5 /* Info.plist */,
+				FBA41348258A1ED40045B1B5 /* GoogleService-Info.plist */,
 				FBA4132E258A1B510045B1B5 /* ForgotPasswordViewController.swift */,
 				FBA41330258A1B8D0045B1B5 /* SignUpViewController.swift */,
 				FBA41332258A1BF40045B1B5 /* ContactsViewController.swift */,
@@ -171,9 +214,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FBA41325258A19EF0045B1B5 /* Build configuration list for PBXNativeTarget "ShutAppiOS" */;
 			buildPhases = (
+				C932F8801EC3286B69A07D61 /* [CP] Check Pods Manifest.lock */,
 				FBA412F7258A19ED0045B1B5 /* Sources */,
 				FBA412F8258A19ED0045B1B5 /* Frameworks */,
 				FBA412F9258A19ED0045B1B5 /* Resources */,
+				5541801AC025D0C2ECD30999 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -188,6 +233,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FBA41328258A19EF0045B1B5 /* Build configuration list for PBXNativeTarget "ShutAppiOSTests" */;
 			buildPhases = (
+				89E8BA12B63C67DA45B76FBB /* [CP] Check Pods Manifest.lock */,
 				FBA4130D258A19EF0045B1B5 /* Sources */,
 				FBA4130E258A19EF0045B1B5 /* Frameworks */,
 				FBA4130F258A19EF0045B1B5 /* Resources */,
@@ -206,9 +252,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FBA4132B258A19EF0045B1B5 /* Build configuration list for PBXNativeTarget "ShutAppiOSUITests" */;
 			buildPhases = (
+				866E06E1E6246DF0E3C75144 /* [CP] Check Pods Manifest.lock */,
 				FBA41318258A19EF0045B1B5 /* Sources */,
 				FBA41319258A19EF0045B1B5 /* Frameworks */,
 				FBA4131A258A19EF0045B1B5 /* Resources */,
+				8D41C68E10891873EFCC61CC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -269,6 +317,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBA4130B258A19EF0045B1B5 /* LaunchScreen.storyboard in Resources */,
+				FBA41349258A1ED40045B1B5 /* GoogleService-Info.plist in Resources */,
 				FBA41308258A19EF0045B1B5 /* Assets.xcassets in Resources */,
 				FBA41306258A19ED0045B1B5 /* Main.storyboard in Resources */,
 			);
@@ -289,6 +338,109 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5541801AC025D0C2ECD30999 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ShutAppiOS/Pods-ShutAppiOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ShutAppiOS/Pods-ShutAppiOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ShutAppiOS/Pods-ShutAppiOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		866E06E1E6246DF0E3C75144 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ShutAppiOS-ShutAppiOSUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		89E8BA12B63C67DA45B76FBB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ShutAppiOSTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8D41C68E10891873EFCC61CC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ShutAppiOS-ShutAppiOSUITests/Pods-ShutAppiOS-ShutAppiOSUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ShutAppiOS-ShutAppiOSUITests/Pods-ShutAppiOS-ShutAppiOSUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ShutAppiOS-ShutAppiOSUITests/Pods-ShutAppiOS-ShutAppiOSUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C932F8801EC3286B69A07D61 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ShutAppiOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FBA412F7258A19ED0045B1B5 /* Sources */ = {
@@ -480,6 +632,7 @@
 		};
 		FBA41326258A19EF0045B1B5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2BEA91872FE37661A1CB93DC /* Pods-ShutAppiOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -497,6 +650,7 @@
 		};
 		FBA41327258A19EF0045B1B5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 39886DC0886E7EA2BDDC75BF /* Pods-ShutAppiOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -514,6 +668,7 @@
 		};
 		FBA41329258A19EF0045B1B5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BEDB006F80DF0353EA34841E /* Pods-ShutAppiOSTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -535,6 +690,7 @@
 		};
 		FBA4132A258A19EF0045B1B5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9E2AEF9D54CC294C0A0F775C /* Pods-ShutAppiOSTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -556,6 +712,7 @@
 		};
 		FBA4132C258A19EF0045B1B5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21B7022B1096494381DE0670 /* Pods-ShutAppiOS-ShutAppiOSUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -575,6 +732,7 @@
 		};
 		FBA4132D258A19EF0045B1B5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FA507366714E735706959FC3 /* Pods-ShutAppiOS-ShutAppiOSUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

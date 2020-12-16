@@ -48,7 +48,7 @@ class SignUpViewController: UIViewController {
         if let newEmail = emailTextField.text, let newPassword = passwordTextField.text,
            let confirmPassword = confirmPasswordTextField.text, let userName = usernameTextField.text
           {
-            if newPassword == confirmPassword && confirmButtonSelected {
+            if newPassword == confirmPassword /*&& confirmButtonSelected*/ {
                 Auth.auth().createUser(withEmail: newEmail, password: newPassword, completion: { authResult, error in
                     if let e = error {
                         print(e)
