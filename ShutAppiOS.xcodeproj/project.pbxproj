@@ -9,12 +9,24 @@
 /* Begin PBXBuildFile section */
 		FBA412FF258A19ED0045B1B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA412FE258A19ED0045B1B5 /* AppDelegate.swift */; };
 		FBA41301258A19ED0045B1B5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA41300258A19ED0045B1B5 /* SceneDelegate.swift */; };
-		FBA41303258A19ED0045B1B5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA41302258A19ED0045B1B5 /* ViewController.swift */; };
 		FBA41306258A19ED0045B1B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBA41304258A19ED0045B1B5 /* Main.storyboard */; };
 		FBA41308258A19EF0045B1B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBA41307258A19EF0045B1B5 /* Assets.xcassets */; };
 		FBA4130B258A19EF0045B1B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBA41309258A19EF0045B1B5 /* LaunchScreen.storyboard */; };
 		FBA41316258A19EF0045B1B5 /* ShutAppiOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA41315258A19EF0045B1B5 /* ShutAppiOSTests.swift */; };
 		FBA41321258A19EF0045B1B5 /* ShutAppiOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA41320258A19EF0045B1B5 /* ShutAppiOSUITests.swift */; };
+		FBA4132F258A1B510045B1B5 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA4132E258A1B510045B1B5 /* ForgotPasswordViewController.swift */; };
+		FBA41331258A1B8D0045B1B5 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA41330258A1B8D0045B1B5 /* SignUpViewController.swift */; };
+		FBA41333258A1BF40045B1B5 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA41332258A1BF40045B1B5 /* ContactsViewController.swift */; };
+		FBA41335258A1C170045B1B5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA41334258A1C170045B1B5 /* LoginViewController.swift */; };
+		FBA41337258A1C340045B1B5 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA41336258A1C340045B1B5 /* SettingsViewController.swift */; };
+		FBA41339258A1C4F0045B1B5 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA41338258A1C4F0045B1B5 /* TermsViewController.swift */; };
+		FBA4133B258A1C800045B1B5 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA4133A258A1C800045B1B5 /* ChatViewController.swift */; };
+		FBA4133D258A1C9B0045B1B5 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA4133C258A1C9B0045B1B5 /* Contact.swift */; };
+		FBA4133F258A1CBC0045B1B5 /* MyContacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA4133E258A1CBC0045B1B5 /* MyContacts.swift */; };
+		FBA41341258A1CDE0045B1B5 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA41340258A1CDE0045B1B5 /* CurrentUser.swift */; };
+		FBA41343258A1CF70045B1B5 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA41342258A1CF70045B1B5 /* Message.swift */; };
+		FBA41345258A1D230045B1B5 /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA41344258A1D230045B1B5 /* Sender.swift */; };
+		FBA41347258A1D400045B1B5 /* MyMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA41346258A1D400045B1B5 /* MyMessages.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +50,6 @@
 		FBA412FB258A19ED0045B1B5 /* ShutAppiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShutAppiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBA412FE258A19ED0045B1B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FBA41300258A19ED0045B1B5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		FBA41302258A19ED0045B1B5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FBA41305258A19ED0045B1B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FBA41307258A19EF0045B1B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FBA4130A258A19EF0045B1B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +60,19 @@
 		FBA4131C258A19EF0045B1B5 /* ShutAppiOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShutAppiOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBA41320258A19EF0045B1B5 /* ShutAppiOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShutAppiOSUITests.swift; sourceTree = "<group>"; };
 		FBA41322258A19EF0045B1B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FBA4132E258A1B510045B1B5 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		FBA41330258A1B8D0045B1B5 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		FBA41332258A1BF40045B1B5 /* ContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
+		FBA41334258A1C170045B1B5 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		FBA41336258A1C340045B1B5 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		FBA41338258A1C4F0045B1B5 /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
+		FBA4133A258A1C800045B1B5 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		FBA4133C258A1C9B0045B1B5 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		FBA4133E258A1CBC0045B1B5 /* MyContacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyContacts.swift; sourceTree = "<group>"; };
+		FBA41340258A1CDE0045B1B5 /* CurrentUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
+		FBA41342258A1CF70045B1B5 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		FBA41344258A1D230045B1B5 /* Sender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sender.swift; sourceTree = "<group>"; };
+		FBA41346258A1D400045B1B5 /* MyMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMessages.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,11 +125,23 @@
 			children = (
 				FBA412FE258A19ED0045B1B5 /* AppDelegate.swift */,
 				FBA41300258A19ED0045B1B5 /* SceneDelegate.swift */,
-				FBA41302258A19ED0045B1B5 /* ViewController.swift */,
 				FBA41304258A19ED0045B1B5 /* Main.storyboard */,
 				FBA41307258A19EF0045B1B5 /* Assets.xcassets */,
 				FBA41309258A19EF0045B1B5 /* LaunchScreen.storyboard */,
 				FBA4130C258A19EF0045B1B5 /* Info.plist */,
+				FBA4132E258A1B510045B1B5 /* ForgotPasswordViewController.swift */,
+				FBA41330258A1B8D0045B1B5 /* SignUpViewController.swift */,
+				FBA41332258A1BF40045B1B5 /* ContactsViewController.swift */,
+				FBA41334258A1C170045B1B5 /* LoginViewController.swift */,
+				FBA41336258A1C340045B1B5 /* SettingsViewController.swift */,
+				FBA41338258A1C4F0045B1B5 /* TermsViewController.swift */,
+				FBA4133A258A1C800045B1B5 /* ChatViewController.swift */,
+				FBA4133C258A1C9B0045B1B5 /* Contact.swift */,
+				FBA4133E258A1CBC0045B1B5 /* MyContacts.swift */,
+				FBA41340258A1CDE0045B1B5 /* CurrentUser.swift */,
+				FBA41342258A1CF70045B1B5 /* Message.swift */,
+				FBA41344258A1D230045B1B5 /* Sender.swift */,
+				FBA41346258A1D400045B1B5 /* MyMessages.swift */,
 			);
 			path = ShutAppiOS;
 			sourceTree = "<group>";
@@ -259,9 +295,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FBA41303258A19ED0045B1B5 /* ViewController.swift in Sources */,
+				FBA41335258A1C170045B1B5 /* LoginViewController.swift in Sources */,
 				FBA412FF258A19ED0045B1B5 /* AppDelegate.swift in Sources */,
+				FBA4133D258A1C9B0045B1B5 /* Contact.swift in Sources */,
+				FBA41337258A1C340045B1B5 /* SettingsViewController.swift in Sources */,
+				FBA41347258A1D400045B1B5 /* MyMessages.swift in Sources */,
 				FBA41301258A19ED0045B1B5 /* SceneDelegate.swift in Sources */,
+				FBA41331258A1B8D0045B1B5 /* SignUpViewController.swift in Sources */,
+				FBA4132F258A1B510045B1B5 /* ForgotPasswordViewController.swift in Sources */,
+				FBA41339258A1C4F0045B1B5 /* TermsViewController.swift in Sources */,
+				FBA41345258A1D230045B1B5 /* Sender.swift in Sources */,
+				FBA4133F258A1CBC0045B1B5 /* MyContacts.swift in Sources */,
+				FBA41343258A1CF70045B1B5 /* Message.swift in Sources */,
+				FBA4133B258A1C800045B1B5 /* ChatViewController.swift in Sources */,
+				FBA41341258A1CDE0045B1B5 /* CurrentUser.swift in Sources */,
+				FBA41333258A1BF40045B1B5 /* ContactsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  TermsViewController.swift
 //  ShutAppiOS
 //
 //  Created by Erik Ugarte on 2020-12-16.
@@ -8,13 +8,19 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class TermsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         // Do any additional setup after loading the view.
+    }
+    
+    //Close Pop U
+    @IBAction func closeTermsPopUp(_ sender: UIButton) {
+        dismiss (animated: true, completion: nil)
+        
     }
 
 
 }
-
