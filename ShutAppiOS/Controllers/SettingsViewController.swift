@@ -18,11 +18,21 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var nameTextField: UILabel!
     @IBOutlet weak var deleteButton: UIButton!
 
-    
+
     //Delete user Button
     @IBAction func pressedDeleteButton(_ sender: UIButton) {
-        self.currentUser.deleteUser()
-        self.performSegue(withIdentifier: "signOutBackToLogin", sender: self)
+        
+        let deleteUserAlert = UIAlertController(title: "Refresh", message: "Are you really sure want delete your profile?", preferredStyle: UIAlertController.Style.alert)
+        deleteUserAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
+            self.currentUser.deleteUser()
+            self.performSegue(withIdentifier: "signOutBackToLogin", sender: self)
+        }))
+        deleteUserAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+            
+        }))
+
+        present(deleteUserAlert, animated: true, completion: nil)
+
     }
     
     //Reset password button

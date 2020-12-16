@@ -77,8 +77,9 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessagesLa
         self.messageInputBar.backgroundView.layer.backgroundColor = UIColor.white.cgColor
         self.messageInputBar.layer.masksToBounds = true
         self.messageInputBar.backgroundView.layer.borderColor = UIColor.white.cgColor
+        self.messagesCollectionView.backgroundColor = UIColor(white: 1, alpha: 0.2)
         let bgImage = UIImageView();
-            bgImage.image = UIImage(named: "crumpled-2537807_1920");
+            bgImage.image = UIImage(named: "megaphone");
         bgImage.contentMode = .scaleToFill
         self.messagesCollectionView.backgroundView = bgImage
     }

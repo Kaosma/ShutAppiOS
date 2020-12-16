@@ -11,6 +11,7 @@ import Firebase
 
 class LoginViewController: UIViewController {
 
+    @IBOutlet weak var verifyEmailTextField: UILabel!
     @IBOutlet weak var logoImage: UIImage!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -26,12 +27,13 @@ class LoginViewController: UIViewController {
         checkUserInfo()
     }
     
-    // Authenticating and login the user
+    // Authenticating and login the user and display user if input is wrong
     @IBAction func loginButtonPressed(_ sender: UIButton) {
         if let inputEmail = emailTextField.text, let inputPassword = passwordTextField.text {
             Auth.auth().signIn(withEmail: inputEmail, password: inputPassword) { [weak self] authResult, error in
                 if let e = error {
                     print(e)
+                    self?.verifyEmailTextField.text = "You entered wrong email or password, please try again."
                 } else {
                     self!.performSegue(withIdentifier: "GoToContactsScreen", sender: self)
                 }
