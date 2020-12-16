@@ -15,7 +15,6 @@ import MessageInputBar
 class ChatViewController: MessagesViewController, MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate, MessageInputBarDelegate, InputBarAccessoryViewDelegate {
     
     let messageController = MyMessages()
-    
     let currentUser = Sender(senderId: CurrentUser().email, displayName: CurrentUser().username, senderEmail: CurrentUser().email)
     var contactUser = Sender(senderId: "", displayName: "", senderEmail: "")
 
@@ -27,10 +26,12 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessagesLa
             return messageController.messages[indexPath.section]
     }
     
+    // Return number of cells in MessagesCollectionView -> Size of the chat Array
     func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
         return messageController.messages.count
     }
     
+    //Text color on messages
     func textColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
             return .white
     }
@@ -47,6 +48,8 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessagesLa
             messageInputBar.inputTextView.text = ""
         }
     }
+    
+    //Send Button style
     func sendButtonItemBar() {
         messageInputBar.sendButton.configure {
             $0.setSize(CGSize(width: 370, height: 36), animated: false)
@@ -60,6 +63,7 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessagesLa
         }
     }
     
+    //Send bar style
     func sendItemBar() {
         self.messageInputBar.inputTextView.placeholder = " Aa"
         self.messageInputBar.inputTextView.textColor = UIColor.white
@@ -72,10 +76,14 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessagesLa
         self.messageInputBar.inputTextView.layer.borderColor = UIColor.lightGray.cgColor
         self.messageInputBar.backgroundView.layer.backgroundColor = UIColor.white.cgColor
         self.messageInputBar.layer.masksToBounds = true
-        self.messagesCollectionView.backgroundColor = UIColor.white
         self.messageInputBar.backgroundView.layer.borderColor = UIColor.white.cgColor
+        let bgImage = UIImageView();
+            bgImage.image = UIImage(named: "crumpled-2537807_1920");
+        bgImage.contentMode = .scaleToFill
+        self.messagesCollectionView.backgroundView = bgImage
     }
     
+    //Background color för message bubbles
     func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
             return isFromCurrentSender(message: message) ? UIColor.purple : UIColor.lightGray
     }
@@ -88,6 +96,7 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessagesLa
         messageInputBar.delegate = self
         loadMessages(sender: contactUser)
         sendItemBar()
+  
         sendButtonItemBar()
     }
     
