@@ -19,6 +19,7 @@ class SignUpViewController: UIViewController {
     // Database initialization
     let db = Firestore.firestore()
    
+    @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
@@ -72,5 +73,6 @@ class SignUpViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        ImageService.setImage(imageView: logoImage, imageURL: "https://firebasestorage.googleapis.com/v0/b/shutappios.appspot.com/o/LogoImage%2FShutAppLogo.jpg?alt=media&token=13216931-418f-486a-9702-2985b262ab08")
     }
 }

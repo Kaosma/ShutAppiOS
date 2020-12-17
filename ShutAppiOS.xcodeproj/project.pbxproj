@@ -31,6 +31,7 @@
 		FBA41345258A1D230045B1B5 /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA41344258A1D230045B1B5 /* Sender.swift */; };
 		FBA41347258A1D400045B1B5 /* MyMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA41346258A1D400045B1B5 /* MyMessages.swift */; };
 		FBA41349258A1ED40045B1B5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FBA41348258A1ED40045B1B5 /* GoogleService-Info.plist */; };
+		FBA4134B258BAB080045B1B5 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA4134A258BAB080045B1B5 /* ImageService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,7 @@
 		FBA41344258A1D230045B1B5 /* Sender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sender.swift; sourceTree = "<group>"; };
 		FBA41346258A1D400045B1B5 /* MyMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMessages.swift; sourceTree = "<group>"; };
 		FBA41348258A1ED40045B1B5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FBA4134A258BAB080045B1B5 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +155,7 @@
 				FBA41340258A1CDE0045B1B5 /* CurrentUser.swift */,
 				FBA4133E258A1CBC0045B1B5 /* MyContacts.swift */,
 				FBA4133C258A1C9B0045B1B5 /* Contact.swift */,
+				FBA4134A258BAB080045B1B5 /* ImageService.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -472,6 +475,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBA41335258A1C170045B1B5 /* LoginViewController.swift in Sources */,
+				FBA4134B258BAB080045B1B5 /* ImageService.swift in Sources */,
 				FBA412FF258A19ED0045B1B5 /* AppDelegate.swift in Sources */,
 				FBA4133D258A1C9B0045B1B5 /* Contact.swift in Sources */,
 				FBA41337258A1C340045B1B5 /* SettingsViewController.swift in Sources */,

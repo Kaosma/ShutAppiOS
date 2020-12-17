@@ -61,10 +61,13 @@
                                     <segue destination="dgY-3Y-sbp" kind="presentation" modalPresentationStyle="fullScreen" id="PjQ-xd-PK0"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="message" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="UJD-Bi-UjO">
-                                <rect key="frame" x="87" y="65.5" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="message" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="UJD-Bi-UjO">
+                                <rect key="frame" x="80" y="74.5" width="254" height="149.5"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="254" id="AqW-ep-nqZ"/>
+                                    <constraint firstAttribute="height" constant="150" id="Kxw-N0-8bW"/>
+                                </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EfR-Es-3ZO" userLabel="forgotPasswordButton">
                                 <rect key="frame" x="146" y="494" width="123" height="30"/>
@@ -76,10 +79,6 @@
                                     <segue destination="T11-vG-Yby" kind="presentation" modalPresentationStyle="fullScreen" id="sd3-ci-XeC"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ue9-aR-nlP">
-                                <rect key="frame" x="87" y="605" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O5D-XI-WmN">
                                 <rect key="frame" x="39" y="238" width="337" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -89,12 +88,17 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="UJD-Bi-UjO" secondAttribute="trailing" constant="80" id="6Zc-5f-pX7"/>
+                            <constraint firstItem="UJD-Bi-UjO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="80" id="doz-RQ-g36"/>
+                            <constraint firstItem="UJD-Bi-UjO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="mIj-D9-5qI"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="8lL-4t-tZ4"/>
                     <connections>
                         <outlet property="emailTextField" destination="Men-2b-Qjg" id="YrH-Gd-8AU"/>
-                        <outlet property="logoImage" destination="ue9-aR-nlP" id="rwe-uR-b2O"/>
+                        <outlet property="logoImage" destination="UJD-Bi-UjO" id="KWJ-Fr-9Sk"/>
                         <outlet property="passwordTextField" destination="Jwr-SH-s0z" id="3rU-7d-cx4"/>
                         <outlet property="verifyEmailTextField" destination="O5D-XI-WmN" id="WRY-pC-GyS"/>
                         <segue destination="tnJ-XP-oy5" kind="presentation" identifier="GoToContactsScreen" modalPresentationStyle="fullScreen" id="phK-Qt-xN7"/>
@@ -173,10 +177,13 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="message" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ot5-5Q-PIz">
-                                <rect key="frame" x="87" y="69.5" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="message" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ot5-5Q-PIz">
+                                <rect key="frame" x="80" y="74.5" width="254" height="149.5"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="38r-AS-J8Z"/>
+                                    <constraint firstAttribute="width" constant="254" id="gN7-pk-9EV"/>
+                                </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pxA-2N-cGJ">
                                 <rect key="frame" x="93" y="832" width="176" height="30"/>
@@ -251,6 +258,11 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="ot5-5Q-PIz" firstAttribute="leading" secondItem="bYr-Zv-8YV" secondAttribute="leading" constant="80" id="Fcd-Tw-3CX"/>
+                            <constraint firstItem="bYr-Zv-8YV" firstAttribute="trailing" secondItem="ot5-5Q-PIz" secondAttribute="trailing" constant="80" id="L9h-k9-IV3"/>
+                            <constraint firstItem="ot5-5Q-PIz" firstAttribute="top" secondItem="bYr-Zv-8YV" secondAttribute="top" constant="30" id="mwS-9g-zQZ"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="bYr-Zv-8YV"/>
                     </view>
                     <navigationItem key="navigationItem" id="X8b-r3-q6c"/>
@@ -258,6 +270,7 @@
                         <outlet property="confirmPasswordTextField" destination="1ja-yf-aEl" id="jGN-lQ-OcP"/>
                         <outlet property="confirmTermsButton" destination="idQ-75-OrM" id="uLE-Y6-oxz"/>
                         <outlet property="emailTextField" destination="yD8-Fp-MCm" id="Nr3-Xb-JwN"/>
+                        <outlet property="logoImage" destination="ot5-5Q-PIz" id="3e8-QL-P87"/>
                         <outlet property="passwordTextField" destination="og9-Yf-hU1" id="EhH-D9-D0w"/>
                         <outlet property="usernameTextField" destination="gtn-V6-3mk" id="Mks-Rf-dGt"/>
                         <segue destination="tnJ-XP-oy5" kind="presentation" identifier="loginAfterSignUpSegue" modalPresentationStyle="fullScreen" id="l6e-Jf-DF5"/>
@@ -276,10 +289,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="message" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="p0Z-gE-kWW">
-                                <rect key="frame" x="87" y="69.5" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="message" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="p0Z-gE-kWW">
+                                <rect key="frame" x="80" y="74.5" width="254" height="149.5"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="PF0-q2-SPJ"/>
+                                    <constraint firstAttribute="width" constant="254" id="e3z-Nk-RbA"/>
+                                </constraints>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder=" Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Ei-it-fuj">
                                 <rect key="frame" x="39" y="258" width="337" height="50"/>
@@ -322,11 +338,17 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="p0Z-gE-kWW" firstAttribute="top" secondItem="ezI-6F-2mT" secondAttribute="top" constant="30" id="cFb-CY-Mrg"/>
+                            <constraint firstItem="ezI-6F-2mT" firstAttribute="trailing" secondItem="p0Z-gE-kWW" secondAttribute="trailing" constant="80" id="hmZ-eT-UNt"/>
+                            <constraint firstItem="p0Z-gE-kWW" firstAttribute="leading" secondItem="ezI-6F-2mT" secondAttribute="leading" constant="80" id="uCb-8X-NYb"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="ezI-6F-2mT"/>
                     </view>
                     <navigationItem key="navigationItem" id="NAI-m3-bv5"/>
                     <connections>
                         <outlet property="emailForgotPasswordTextField" destination="1Ei-it-fuj" id="Z01-x1-twU"/>
+                        <outlet property="logoImage" destination="p0Z-gE-kWW" id="5Jf-WQ-pK2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jbv-ln-ITl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
