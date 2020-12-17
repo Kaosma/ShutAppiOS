@@ -87,7 +87,8 @@ class ContactsViewController: UIViewController {
     // MARK: Other Functions
     // Load the user's contacts into the TableView
     func loadContacts(willFilter: Bool){
-        contactController.getContactsFromDatabase(tableView: contactTableView, filter: willFilter)
+        contactController.filter = true
+        contactController.getContactsFromDatabase(tableView: contactTableView)
     }
     
 
@@ -104,16 +105,7 @@ extension ContactsViewController: SwipeTableViewCellDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         guard orientation == .right else { return nil }
         let deleteAction = SwipeAction(style: .destructive, title: "Delete") { (action, indexPath) in
-            let item = self.contactController.filteredContacts[indexPath.row]
-            self.db.collection("users").document(self.currentUser.email).collection("contacts").document(item.email).delete() { err in
-                if let err = err {
-                    print("Error removing document: \(err)")
-                } else {
-                    print("Document successfully removed!")
-                }
-            }
-            self.contactController.filteredContacts.remove(at: indexPath.row)
-            self.loadContacts(willFilter:false)
+            self.contactController.deleteContact(index: indexPath, tableView: self.contactTableView)
         }
         return [deleteAction]
     }
@@ -135,6 +127,7 @@ extension ContactsViewController: UITableViewDelegate, UITableViewDataSource {
         let name = cell.contentView.viewWithTag(1) as! UILabel
         //let content = cell.contentView.viewWithTag(2) as! UILabel
         name.text = contact.username
+        //content.text =
         return cell
     }
     
@@ -166,7 +159,7 @@ extension ContactsViewController: UITableViewDelegate, UITableViewDataSource {
 
 // MARK: SearchBar Functionality
 extension ContactsViewController: UISearchBarDelegate {
-    
+
     // Searchbar will always control when it's being interracted with
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         

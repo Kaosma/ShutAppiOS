@@ -49,7 +49,6 @@ class CurrentUser {
                         contactsCollection.document(self.email).setData(["id" : self.id as String,
                                                                                 "name" : name as String,
                                                                     "conversation" : conversation as String])
-                        print(name)
                     }
                 }
             }
@@ -59,7 +58,6 @@ class CurrentUser {
     //deleting Current User Auth
     func deleteUser() {
 
-        
         //deleting current user from users Collection
         let docRef = self.db.collection("users").document(self.email)
         docRef.delete { error in
