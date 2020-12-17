@@ -32,8 +32,7 @@ class LoginViewController: UIViewController {
         if let inputEmail = emailTextField.text, let inputPassword = passwordTextField.text {
             Auth.auth().signIn(withEmail: inputEmail, password: inputPassword) { [weak self] authResult, error in
                 if let e = error {
-                    print(e)
-                    self?.verifyEmailTextField.text = "You entered wrong email or password, please try again."
+                    self?.verifyEmailTextField.text = e.localizedDescription
                 } else {
                     self!.performSegue(withIdentifier: "GoToContactsScreen", sender: self)
                 }
