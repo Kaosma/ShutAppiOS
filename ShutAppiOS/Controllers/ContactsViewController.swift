@@ -125,9 +125,9 @@ extension ContactsViewController: UITableViewDelegate, UITableViewDataSource {
         cell.delegate = self
         let contact = self.contactController.filteredContacts[indexPath.row]
         let name = cell.contentView.viewWithTag(1) as! UILabel
-        //let content = cell.contentView.viewWithTag(2) as! UILabel
+        let content = cell.contentView.viewWithTag(2) as! UILabel
         name.text = contact.username
-        //content.text =
+        content.text = contactController.latestMessages[contact.email]
         return cell
     }
     

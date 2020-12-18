@@ -16,6 +16,7 @@ class MyContacts {
     
     var filteredContacts : [Contact] = []
     var contacts : [Contact] = []
+    var latestMessages = [String:String]()
     var filter: Bool = false
     
     // Filtering the contacts when using the SearchBar
@@ -95,6 +96,30 @@ class MyContacts {
         }
     }
     
+    // Getting the latest message sent in a conversation with a user
+    func getLatestMessages(tableView: UITableView) {
+        for i in filteredContacts {
+            let collection = db.collection("conversations").document(i.conversationId).collection("messages")
+            // Reading from the "messages" Collection and ordering them by date
+            collection.order(by: "date").addSnapshotListener { (documents, err) in
+                
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    if let index = (documents?.documents.count) {
+                        if let document = documents?.documents[index-1] {
+                            if let messageBody = document.data()["body"] as? String{
+                                self.latestMessages.updateValue(messageBody, forKey: i.email)
+                            }
+                            DispatchQueue.main.async {
+                                tableView.reloadData()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     // Loading the contacts from the database
     func getContactsFromDatabase(tableView: UITableView) {
         let collection = db.collection("users").document(currentUser.email).collection("contacts")
@@ -118,7 +143,7 @@ class MyContacts {
                         print("--------------")
                         print()
                         DispatchQueue.main.async {
-                            tableView.reloadData()
+                            self.getLatestMessages(tableView: tableView)
                         }
                     }
                 }
