@@ -106,13 +106,15 @@ class MyContacts {
                 if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
-                    if let index = (documents?.documents.count) {
-                        if let document = documents?.documents[index-1] {
-                            if let messageBody = document.data()["body"] as? String{
-                                self.latestMessages.updateValue(messageBody, forKey: i.email)
-                            }
-                            DispatchQueue.main.async {
-                                tableView.reloadData()
+                    if documents?.documents.count != 0 {
+                        if let index = (documents?.documents.count) {
+                            if let document = documents?.documents[index-1] {
+                                if let messageBody = document.data()["body"] as? String{
+                                    self.latestMessages.updateValue(messageBody, forKey: i.email)
+                                }
+                                DispatchQueue.main.async {
+                                    tableView.reloadData()
+                                }
                             }
                         }
                     }
@@ -150,4 +152,16 @@ class MyContacts {
             }
         }
     }
-}
+    
+    //Bubble sort function
+    func bubble(arr: inout [Contact]) {
+            for i in (1..<arr.count).reversed() {
+                for j in 0..<i where arr[j].latestMessageDate < arr[j + 1].latestMessageDate {
+                    arr.swapAt(j, j + 1)
+                    for k in arr {
+                        print(k.username," + ", k.latestMessageDate)
+                    }
+                }
+            }
+        }
+    }
