@@ -127,7 +127,11 @@ extension ContactsViewController: UITableViewDelegate, UITableViewDataSource {
         let name = cell.contentView.viewWithTag(1) as! UILabel
         let content = cell.contentView.viewWithTag(2) as! UILabel
         name.text = contact.username
-        content.text = contactController.latestMessages[contact.email]
+        if let latestMessage = contactController.latestMessages[contact.email] {
+            content.text = latestMessage
+        } else {
+            content.text = "No messages yet"
+        }
         return cell
     }
     

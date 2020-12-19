@@ -106,8 +106,8 @@ class MyContacts {
                 if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
-                    if documents?.documents.count != 0 {
-                        if let index = (documents?.documents.count) {
+                    if let index = (documents?.documents.count) {
+                        if index != 0 {
                             if let document = documents?.documents[index-1] {
                                 if let messageBody = document.data()["body"] as? String{
                                     self.latestMessages.updateValue(messageBody, forKey: i.email)
