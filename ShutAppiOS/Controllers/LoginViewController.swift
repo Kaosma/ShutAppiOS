@@ -17,6 +17,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     var contacts : [Contact] = []
+    var currenUser = CurrentUser()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +44,9 @@ class LoginViewController: UIViewController {
     func checkUserInfo(){
         if ((Auth.auth().currentUser?.uid) != nil) {
             self.performSegue(withIdentifier: "GoToContactsScreen", sender: self)
+        }
+        if ((Auth.auth().currentUser?.uid) == nil) {
+            currenUser.signOutCurrentUser()
         }
     }
     

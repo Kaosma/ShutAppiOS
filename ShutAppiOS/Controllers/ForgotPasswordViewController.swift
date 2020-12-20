@@ -9,18 +9,21 @@
 import UIKit
 import Firebase
 
-class ForgotPasswordViewController: UIViewController {
+class ForgotPasswordViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var emailForgotPasswordTextField: UITextField!
+    let currentUser = CurrentUser()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         ImageService.setImage(imageView: logoImage, imageURL: "https://firebasestorage.googleapis.com/v0/b/shutappios.appspot.com/o/LogoImage%2FShutAppLogo.jpg?alt=media&token=13216931-418f-486a-9702-2985b262ab08")
+        self.emailForgotPasswordTextField.delegate = self
+        
     }
-
+    
     // Handling a forgot password using an alert to communicate with the user
-    @IBAction func forgotPasswordButton(_ sender: UIButton) {
+    @IBAction func forgotPasswordButton(_ sender: UIButton)  {
         let auth = Auth.auth()
         auth.sendPasswordReset(withEmail: emailForgotPasswordTextField.text!) { (error) in
             if let error = error {
@@ -33,5 +36,9 @@ class ForgotPasswordViewController: UIViewController {
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { action in self.performSegue(withIdentifier: "backToLoginPageSegue", sender: self) }))
             self.present(alert, animated: true, completion: nil)
         }
+        
     }
+    
+    
 }
+

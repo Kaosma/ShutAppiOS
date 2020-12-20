@@ -80,6 +80,7 @@ class CurrentUser {
             
         }
     }
+
     //SignOUt Current User
     func signOutCurrentUser() {
         do {
@@ -102,5 +103,4 @@ class CurrentUser {
             self.signOutCurrentUser()
         }
     }
-
 }
