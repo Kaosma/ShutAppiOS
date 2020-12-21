@@ -8,6 +8,7 @@
 
 import Foundation
 import Firebase
+import CryptoSwift
 
 class MyMessages {
     let db = Firestore.firestore()
@@ -75,6 +76,12 @@ class MyMessages {
                     print("Error writing document: \(err)")
                 } else {
                     print("Message Sent")
+                    if let aes = try? AES(key: "1234567890123456", iv: "abdefdsrfjdirogf"), let aesE = try? aes.encrypt(Array(body.utf8)) {
+                           print("AES encrypted: \(aesE)")
+                           let aesD = try? aes.decrypt(aesE)
+                           let decrypted = String(bytes: aesD!, encoding: .utf8)
+                           print("AES decrypted: \(String(describing: decrypted))")
+                    }
                 }
             }
         //} else {

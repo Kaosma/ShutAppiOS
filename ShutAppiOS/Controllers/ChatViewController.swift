@@ -11,6 +11,7 @@ import MessageKit
 import Firebase
 import InputBarAccessoryView
 import MessageInputBar
+import CryptoSwift
 
 class ChatViewController: MessagesViewController, MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate, MessageInputBarDelegate, InputBarAccessoryViewDelegate {
     
