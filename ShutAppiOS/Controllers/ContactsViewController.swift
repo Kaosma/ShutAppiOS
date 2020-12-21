@@ -97,6 +97,7 @@ class ContactsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadContacts(willFilter:true)
+        
     }
 }
 

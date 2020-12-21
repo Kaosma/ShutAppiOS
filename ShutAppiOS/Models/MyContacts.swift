@@ -19,6 +19,8 @@ class MyContacts {
     var latestMessages = [String:String]()
     var filter: Bool = false
     
+    
+    
     // Filtering the contacts when using the SearchBar
     func filterContacts(tableView: UITableView) {
         print("FILTER CONTACTS")
@@ -113,6 +115,7 @@ class MyContacts {
                                     self.latestMessages.updateValue(messageBody, forKey: i.email)
                                 }
                                 DispatchQueue.main.async {
+                                    //print(self.bubble(arr: &self.contacts))
                                     tableView.reloadData()
                                 }
                             }

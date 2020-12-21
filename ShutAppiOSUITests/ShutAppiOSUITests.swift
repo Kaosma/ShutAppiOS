@@ -8,7 +8,7 @@
 
 import XCTest
 
-class ShutAppiOSUITests: XCTestCase {
+class when_the_user_types_email_and_press_send_button: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -23,14 +23,30 @@ class ShutAppiOSUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // UI tests must launch the application that they test.
+    func teestValidLoginSuccess(){
+        
+       
         let app = XCUIApplication()
-        app.launch()
+         
+          let typeSomthingTextField = app.textFields[" Email"]
+          typeSomthingTextField.tap()
+          
+          let textToType = "something diffrent"
+          for c in textToType{
+              typeSomthingTextField.typeText("\(c)")
+          }
+          
+          let textFieldText = typeSomthingTextField.value as! String
+          XCTAssertEqual(textFieldText, textToType)
 
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+          app.buttons["Log in"].tap()
+          app.staticTexts[textToType].tap()
+          
+          let textFieldTextAfterTapButton = typeSomthingTextField.value as! String?
+          XCTAssertEqual(textFieldTextAfterTapButton, " fffffEmail")
+          
     }
+    
 
     func testLaunchPerformance() throws {
         if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
@@ -38,6 +54,9 @@ class ShutAppiOSUITests: XCTestCase {
             measure(metrics: [XCTOSSignpostMetric.applicationLaunch]) {
                 XCUIApplication().launch()
             }
+            
+            
         }
     }
 }
+

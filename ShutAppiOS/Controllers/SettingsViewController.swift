@@ -28,11 +28,8 @@ class SettingsViewController: UIViewController {
             self.performSegue(withIdentifier: "signOutBackToLogin", sender: self)
         }))
         deleteUserAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
-            
         }))
-
         present(deleteUserAlert, animated: true, completion: nil)
-
     }
     
     //Reset password button
@@ -57,5 +54,4 @@ class SettingsViewController: UIViewController {
         self.currentUser.signOutCurrentUser()
         self.performSegue(withIdentifier: "signOutBackToLogin", sender: self)
     }
-    
 }
