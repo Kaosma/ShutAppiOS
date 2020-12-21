@@ -49,18 +49,7 @@ class SettingsViewController: UIViewController {
         deleteButton.layer.borderColor = UIColor.black.cgColor
         
         // Getting the username from the current logged in user
-        let collection = db.collection("users").document(self.currentUser.email)
-        collection.getDocument { (document, err) in
-            if let document = document, document.exists {
-                    let dataDescription = document.data()
-                self.nameTextField.text = dataDescription?["name"] as? String
-                //self.EmailTextField.text = self.currentUser.email
-
-                } else {
-                    print("Document does not exist")
-                }
-            
-        }
+        currentUser.setName(contactUserEmail: currentUser.email, conversation: "", settingsVC: true, textField: nameTextField)
     }
     
     //Button for sign out user

@@ -34,21 +34,26 @@ class CurrentUser {
 
     var username : String = ""
     
-    func setName(contactUserEmail: String, conversation: String) {
+    func setName(contactUserEmail: String, conversation: String, settingsVC: Bool, textField: UILabel?) {
         let docRef = db.collection("users").document(Auth.auth().currentUser!.email!)
-        var name = ""
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {
                 if let dataDescription = document.data() {
                     if let userName = dataDescription["name"] as? String {
-                        name = userName
-                    }
-                    DispatchQueue.main.async {
-                        // Add contact to the user's contacts in the database
-                        let contactsCollection = self.db.collection("users").document(contactUserEmail).collection("contacts")
-                        contactsCollection.document(self.email).setData(["id" : self.id as String,
-                                                                                "name" : name as String,
-                                                                    "conversation" : conversation as String])
+                        self.username = userName
+                        
+                        DispatchQueue.main.async {
+                            if settingsVC {
+                                textField!.text = userName
+                            }
+                            else {
+                                // Add contact to the user's contacts in the database
+                                let contactsCollection = self.db.collection("users").document(contactUserEmail).collection("contacts")
+                                contactsCollection.document(self.email).setData(["id" : self.id as String,
+                                                                                 "name" : self.username as String,
+                                                                            "conversation" : conversation as String])
+                            }
+                        }
                     }
                 }
             }

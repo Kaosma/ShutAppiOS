@@ -55,7 +55,7 @@ class MyContacts {
     
     // Add me as a new contact for my new contact
     func addMyUserAsContact(contactUserEmail: String, conversation: String) {
-        currentUser.setName(contactUserEmail: contactUserEmail, conversation: conversation)
+        currentUser.setName(contactUserEmail: contactUserEmail, conversation: conversation, settingsVC: false, textField: nil)
     }
     
     // Delete contact
