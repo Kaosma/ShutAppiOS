@@ -46,7 +46,7 @@ class SettingsViewController: UIViewController {
         deleteButton.layer.borderColor = UIColor.black.cgColor
         
         // Getting the username from the current logged in user
-        currentUser.setName(contactUserEmail: currentUser.email, conversation: "", settingsVC: true, textField: nameTextField)
+        currentUser.getUsername(contactUserEmail: currentUser.email, conversation: "", textField: nameTextField)
     }
     
     //Button for sign out user

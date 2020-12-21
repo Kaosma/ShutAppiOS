@@ -50,14 +50,9 @@ class MyContacts {
             filteredContacts.append(newContact)
 
             DispatchQueue.main.async {
-                self.addMyUserAsContact(contactUserEmail: email, conversation: conversationId)
+                self.currentUser.setAsContact(contactUserEmail: email, conversation: conversationId)
             }
         }
-    }
-    
-    // Add me as a new contact for my new contact
-    func addMyUserAsContact(contactUserEmail: String, conversation: String) {
-        currentUser.setName(contactUserEmail: contactUserEmail, conversation: conversation, settingsVC: false, textField: nil)
     }
     
     // Delete contact

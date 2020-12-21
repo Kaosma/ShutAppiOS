@@ -34,7 +34,7 @@ class CurrentUser {
 
     var username : String = ""
     
-    func setName(contactUserEmail: String, conversation: String, settingsVC: Bool, textField: UILabel?) {
+    func getUsername(contactUserEmail: String, conversation: String, textField: UILabel?) {
         let docRef = db.collection("users").document(Auth.auth().currentUser!.email!)
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {
@@ -43,16 +43,29 @@ class CurrentUser {
                         self.username = userName
                         
                         DispatchQueue.main.async {
-                            if settingsVC {
-                                textField!.text = userName
-                            }
-                            else {
-                                // Add contact to the user's contacts in the database
-                                let contactsCollection = self.db.collection("users").document(contactUserEmail).collection("contacts")
-                                contactsCollection.document(self.email).setData(["id" : self.id as String,
-                                                                                 "name" : self.username as String,
-                                                                            "conversation" : conversation as String])
-                            }
+                            textField!.text = userName
+                        }
+                        
+                    }
+                }
+            }
+        }
+    }
+    
+    // Add contact to the user's contacts in the database
+    func setAsContact(contactUserEmail: String, conversation: String) {
+        let docRef = db.collection("users").document(Auth.auth().currentUser!.email!)
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                if let dataDescription = document.data() {
+                    if let userName = dataDescription["name"] as? String {
+                        self.username = userName
+
+                        DispatchQueue.main.async {
+                            let contactsCollection = self.db.collection("users").document(contactUserEmail).collection("contacts")
+                            contactsCollection.document(self.email).setData(["id" : self.id as String,
+                                                                             "name" : self.username as String,
+                                                                        "conversation" : conversation as String])
                         }
                     }
                 }
