@@ -33,7 +33,7 @@ class CurrentUser {
 
     var username : String = ""
     
-    func getUsername(textField: UITextField?) {
+    func getUsername(usernameTextField textField: UITextField?) {
         let docRef = db.collection("users").document(email)
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {
@@ -51,7 +51,7 @@ class CurrentUser {
         }
     }
     
-    func changeUsername(newName: String, textField: UITextField?) {
+    func changeUsername(newName name: String, usernameTextField textField: UITextField?) {
         
         let updateReference = db.collection("users").document(email)
         updateReference.getDocument { (document, err) in
@@ -59,16 +59,16 @@ class CurrentUser {
                 print(err.localizedDescription)
             }
             else {
-                document?.reference.updateData([ "name": newName ])
+                document?.reference.updateData([ "name": name ])
                 
                 DispatchQueue.main.async {
-                    self.getUsername(textField: textField)
+                    self.getUsername(usernameTextField: textField)
                 }
             }
         }
     }
     // Add contact to the user's contacts in the database
-    func setAsContact(contactUserEmail: String, conversation: String) {
+    func setAsContact(contactUserEmail contactEmail: String, conversationId conversation: String) {
         let docRef = db.collection("users").document(Auth.auth().currentUser!.email!)
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {
@@ -77,7 +77,7 @@ class CurrentUser {
                         self.username = userName
 
                         DispatchQueue.main.async {
-                            let contactsCollection = self.db.collection("users").document(contactUserEmail).collection("contacts")
+                            let contactsCollection = self.db.collection("users").document(contactEmail).collection("contacts")
                             contactsCollection.document(self.email).setData(["id" : self.id as String,
                                                                              "name" : self.username as String,
                                                                         "conversation" : conversation as String])

@@ -41,7 +41,7 @@ class ContactsViewController: UIViewController {
                     docRef.getDocument { (document, error) in
                         // If the new contact's email exists -> Add the contact
                         if let document = document, document.exists {
-                            self.contactController.addContact(doc: document, email: contactEmail, tableView: self.contactTableView)
+                            self.contactController.addContact(document: document, contactEmail: contactEmail, table: self.contactTableView)
                             let dismissAlert = UIAlertController(title: "Contact Added!", message: "", preferredStyle: .alert)
                             
                             dismissAlert.addAction(UIAlertAction(title: "OK",
@@ -87,8 +87,8 @@ class ContactsViewController: UIViewController {
     // MARK: Other Functions
     // Load the user's contacts into the TableView
     func loadContacts(willFilter: Bool){
-        contactController.filter = willFilter
-        contactController.getContactsFromDatabase(tableView: contactTableView)
+        contactController.filter = true
+        contactController.getContactsFromDatabase(table: contactTableView)
     }
     
 
@@ -106,9 +106,48 @@ extension ContactsViewController: SwipeTableViewCellDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         guard orientation == .right else { return nil }
         let deleteAction = SwipeAction(style: .destructive, title: "Delete") { (action, indexPath) in
-            self.contactController.deleteContact(index: indexPath, tableView: self.contactTableView)
+            self.contactController.deleteContact(indexPath: indexPath, table: self.contactTableView)
         }
-        return [deleteAction]
+        let changeContactNameAction = SwipeAction(style: .default , title: "Change Name") { (action, indexPath) in
+            
+            // Creating an alert that allows the user to pass in a new contact's e-mail
+            var textField = UITextField()
+            let email = self.contactController.filteredContacts[indexPath.row].email
+            let alert = UIAlertController(title: "Change Contact Name", message: "Enter new name or nickname.", preferredStyle: .alert)
+            
+            // Creating an alert that allows the user to pass in a new contact's e-mail
+            let action = UIAlertAction(title: "Done", style: .default) { (action) in
+                if !textField.text!.trimmingCharacters(in: .whitespaces).isEmpty {
+                    if let contactName = textField.text {
+                        let updateReference = self.db.collection("users").document(self.currentUser.email).collection("contacts").document(email)
+                        updateReference.getDocument { (document, err) in
+                            if let err = err {
+                                print(err.localizedDescription)
+                            }
+                            else {
+                                document?.reference.updateData([ "name": contactName ])
+                                let dismissAlert = UIAlertController(title: "Contact name changed", message: "", preferredStyle: .alert)
+                                
+                                dismissAlert.addAction(UIAlertAction(title: "OK",
+                                                                     style: .cancel, handler: nil))
+                            }
+                        }
+                    }
+                    
+                } else {}
+            }
+            // Styling the alert
+            alert.addTextField { (alertTextField) in
+                alertTextField.placeholder = "Name/Nickname"
+                textField = alertTextField
+            }
+            
+            alert.addAction(action)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+        return [deleteAction, changeContactNameAction]
     }
 }
 
@@ -172,7 +211,7 @@ extension ContactsViewController: UISearchBarDelegate {
         
         // If the searchbarText contains an empty string the filtered data will only be the contacts array
         if searchText == "" {
-            contactController.filterContacts(tableView: contactTableView)
+            contactController.filterContacts()
             
         // Else check if the array has elements that contains the searchbarText and display them as a filtered list
         } else {

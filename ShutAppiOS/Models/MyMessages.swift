@@ -17,7 +17,7 @@ class MyMessages {
     var messages = [Message]()
     
     // Loading the messages from the database
-    func getMessagesFromDatabase(collectionView: UICollectionView, senderUser: Sender) {
+    func getMessagesFromDatabase(collection collectionView: UICollectionView, sender senderUser: Sender) {
         let collection = db.collection("conversations").document(senderUser.senderId).collection("messages")
         
         // Reading from the "messages" Collection and ordering them by date
@@ -48,8 +48,8 @@ class MyMessages {
         }
     }
     
-    func myUserInContacts(sender: Sender) -> Bool {
-        let docRef = db.collection("users").document(sender.senderEmail).collection("contacts").document(currentUser.email)
+    func myUserInContacts(sender senderUser: Sender) -> Bool {
+        let docRef = db.collection("users").document(senderUser.senderEmail).collection("contacts").document(currentUser.email)
         var exists = false
         docRef.getDocument { (document, error) in
             // If the new contact's email exists -> Add the contact
@@ -64,7 +64,7 @@ class MyMessages {
         return exists
     }
     // Adding a message from the currentUser to the "messages" collection
-    func sendMessage(collectionView: UICollectionView, senderUser: Sender, body: String) {
+    func sendMessage(collection collectionView: UICollectionView, sender senderUser: Sender, messageBody body: String) {
         //if myUserInContacts(sender: senderUser) {
             let collection = db.collection("conversations").document(senderUser.senderId).collection("messages")
             collection.document().setData([

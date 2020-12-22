@@ -39,13 +39,13 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessagesLa
     
     // Loading all the messages from and to a contact
     func loadMessages(sender: Sender) {
-        messageController.getMessagesFromDatabase(collectionView: messagesCollectionView, senderUser: sender)
+        messageController.getMessagesFromDatabase(collection: messagesCollectionView, sender: sender)
     }
     
     // Sending a message to a contact
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
         if let inputText = messageInputBar.inputTextView.text {
-            messageController.sendMessage(collectionView: messagesCollectionView, senderUser: contactUser, body: inputText)
+            messageController.sendMessage(collection: messagesCollectionView, sender: contactUser, messageBody: inputText)
             messageInputBar.inputTextView.text = ""
         }
     }

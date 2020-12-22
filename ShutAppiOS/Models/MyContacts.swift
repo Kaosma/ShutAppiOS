@@ -22,7 +22,7 @@ class MyContacts {
     
     
     // Filtering the contacts when using the SearchBar
-    func filterContacts(tableView: UITableView) {
+    func filterContacts() {
         filteredContacts = []
         for contact in contacts {
             filteredContacts.append(contact)
@@ -30,7 +30,7 @@ class MyContacts {
     }
     
     // Add user as a new contact
-    func addContact(doc: DocumentSnapshot, email: String, tableView: UITableView) {
+    func addContact(document doc: DocumentSnapshot, contactEmail email: String, table tableView: UITableView) {
         filter = false
         let dataDescription = doc.data()
         if let contactId = dataDescription!["id"] as? String, let contactUsername = dataDescription!["name"] as? String {
@@ -49,13 +49,13 @@ class MyContacts {
             filteredContacts.append(newContact)
 
             DispatchQueue.main.async {
-                self.currentUser.setAsContact(contactUserEmail: email, conversation: conversationId)
+                self.currentUser.setAsContact(contactUserEmail: email, conversationId: conversationId)
             }
         }
     }
-    
+        
     // Delete contact
-    func deleteContact(index: IndexPath, tableView: UITableView) {
+    func deleteContact(indexPath index: IndexPath, table tableView: UITableView) {
         let item = filteredContacts[index.row]
         filter = false
         db.collection("users").document(self.currentUser.email).collection("contacts").document(item.email).delete() { err in
@@ -63,14 +63,14 @@ class MyContacts {
                 print("Error removing document: \(err)")
             } else {
                 print("Contact removed!")
-                self.deleteMyUserAsContact(index: index, tableView: tableView)
-                self.deleteConversation(conversation: item.conversationId)
+                self.deleteMyUserAsContact(indexPath: index, table: tableView)
+                self.deleteConversation(conversationId: item.conversationId)
             }
         }
     }
     
     // Delete me as a contact for my deleted contact
-    func deleteMyUserAsContact(index: IndexPath, tableView: UITableView) {
+    func deleteMyUserAsContact(indexPath index: IndexPath, table tableView: UITableView) {
         let item = filteredContacts[index.row]
         db.collection("users").document(item.email).collection("contacts").document(self.currentUser.email).delete() { err in
             if let err = err {
@@ -82,7 +82,7 @@ class MyContacts {
     }
     
     // Delete conversation
-    func deleteConversation(conversation: String) {
+    func deleteConversation(conversationId conversation: String) {
         db.collection("conversations").document(conversation).delete() { err in
             if let err = err {
                 print("Error removing document: \(err)")
@@ -93,7 +93,7 @@ class MyContacts {
     }
     
     // Getting the latest message sent in a conversation with a user
-    func getLatestMessages(tableView: UITableView) {
+    func getLatestMessages(table tableView: UITableView) {
         for i in contacts {
             let collection = db.collection("conversations").document(i.conversationId).collection("messages")
             // Reading from the "messages" Collection and ordering them by date
@@ -120,7 +120,7 @@ class MyContacts {
         }
     }
     // Loading the contacts from the database
-    func getContactsFromDatabase(tableView: UITableView) {
+    func getContactsFromDatabase(table tableView: UITableView) {
         let collection = db.collection("users").document(currentUser.email).collection("contacts")
         
         collection.addSnapshotListener { (querySnapshot, err) in
@@ -135,11 +135,11 @@ class MyContacts {
                         self.contacts.append(contact)
                         
                         if self.filter {
-                            self.filterContacts(tableView: tableView)
+                            self.filterContacts()
                         }
                         
                         DispatchQueue.main.async {
-                            self.getLatestMessages(tableView: tableView)
+                            self.getLatestMessages(table: tableView)
                         }
                     }
                 }

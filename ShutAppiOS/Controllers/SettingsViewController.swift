@@ -22,7 +22,7 @@ class SettingsViewController: UIViewController {
 
     @IBAction func updateButtonPressed(_ sender: UIButton) {
         if let text = nameTextField.text {
-            currentUser.changeUsername(newName: text, textField: nameTextField)
+            currentUser.changeUsername(newName: text, usernameTextField: nameTextField)
         }
     }
     
@@ -53,7 +53,7 @@ class SettingsViewController: UIViewController {
         deleteButton.layer.borderColor = UIColor.black.cgColor
         
         // Getting the username from the current logged in user
-        currentUser.getUsername(textField: nameTextField)
+        currentUser.getUsername(usernameTextField: nameTextField)
     }
     
     //Button for sign out user
