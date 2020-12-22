@@ -11,7 +11,7 @@ import Firebase
 
 class LoginViewController: UIViewController {
 
-    @IBOutlet weak var verifyEmailTextField: UILabel!
+    @IBOutlet weak var loginErrorLabel: UILabel!
     
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var emailTextField: UITextField!
@@ -33,7 +33,7 @@ class LoginViewController: UIViewController {
         if let inputEmail = emailTextField.text, let inputPassword = passwordTextField.text {
             Auth.auth().signIn(withEmail: inputEmail, password: inputPassword) { [weak self] authResult, error in
                 if let e = error {
-                    self?.verifyEmailTextField.text = e.localizedDescription
+                    self?.loginErrorLabel.text = e.localizedDescription
                 } else {
                     self!.performSegue(withIdentifier: "GoToContactsScreen", sender: self)
                 }

@@ -87,7 +87,7 @@ class ContactsViewController: UIViewController {
     // MARK: Other Functions
     // Load the user's contacts into the TableView
     func loadContacts(willFilter: Bool){
-        contactController.filter = true
+        contactController.filter = willFilter
         contactController.getContactsFromDatabase(tableView: contactTableView)
     }
     

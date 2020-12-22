@@ -136,4 +136,29 @@ class CurrentUser {
             self.signOutCurrentUser()
         }
     }
+    
+    
+    
+    func UpdateUI(){
+
+        test { (data) in
+          //data is value return by test function
+            DispatchQueue.main.async {
+                // Update UI
+                //do task what you want.
+                // run on the main queue, after the previous code in outer block
+            }
+        }
+    }
+
+    func test (returnCompletion: @escaping (AnyObject) -> () ){
+
+        let url = URL(string: "https://google.com/")
+        DispatchQueue.global(qos: .background).async {
+            // Background work
+            let data = try? Data(contentsOf: url!)
+            // convert the data in you formate. here i am using anyobject.
+            returnCompletion(data as AnyObject)
+        }
+    }
 }
