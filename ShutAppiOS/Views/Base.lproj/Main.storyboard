@@ -485,13 +485,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Wp-Pq-ct2">
-                                <rect key="frame" x="139" y="312" width="136" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hM7-3q-Sxy">
                                 <rect key="frame" x="39" y="444" width="337" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -526,6 +519,23 @@
                                     <action selector="pressedDeleteButton:" destination="MR9-rs-ABV" eventType="touchUpInside" id="wYH-yc-c1Z"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="x4N-yP-YAZ">
+                                <rect key="frame" x="139" y="312" width="136" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XgE-ov-a2X">
+                                <rect key="frame" x="171" y="354" width="72" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Update">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="updateButtonPressed:" destination="MR9-rs-ABV" eventType="touchUpInside" id="tjX-S2-IEG"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="Ea2-Ig-DlS"/>
@@ -533,7 +543,7 @@
                     <navigationItem key="navigationItem" title="Settings" id="d2B-9l-skn"/>
                     <connections>
                         <outlet property="deleteButton" destination="5bh-6J-hTy" id="oqN-KM-WrJ"/>
-                        <outlet property="nameTextField" destination="9Wp-Pq-ct2" id="irP-li-HZ0"/>
+                        <outlet property="nameTextField" destination="x4N-yP-YAZ" id="yOd-vF-pIo"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="signOutBackToLogin" modalPresentationStyle="fullScreen" id="gaG-9Z-bDr"/>
                     </connections>
                 </viewController>
@@ -578,9 +588,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="phK-Qt-xN7"/>
+        <segue reference="l6e-Jf-DF5"/>
         <segue reference="Ims-QM-Hk9"/>
-        <segue reference="x9r-kG-EUW"/>
+        <segue reference="gaG-9Z-bDr"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
     <resources>

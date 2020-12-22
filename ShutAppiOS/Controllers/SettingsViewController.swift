@@ -15,10 +15,17 @@ class SettingsViewController: UIViewController {
     //@IBOutlet weak var EmailTextField: UITextField!
     let currentUser = CurrentUser()
     let db = Firestore.firestore()
-    @IBOutlet weak var nameTextField: UILabel!
+    
+    @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var deleteButton: UIButton!
 
 
+    @IBAction func updateButtonPressed(_ sender: UIButton) {
+        if let text = nameTextField.text {
+            currentUser.changeUsername(newName: text, textField: nameTextField)
+        }
+    }
+    
     //Delete user Button
     @IBAction func pressedDeleteButton(_ sender: UIButton) {
         
@@ -46,7 +53,7 @@ class SettingsViewController: UIViewController {
         deleteButton.layer.borderColor = UIColor.black.cgColor
         
         // Getting the username from the current logged in user
-        currentUser.getUsername(contactUserEmail: currentUser.email, conversation: "", textField: nameTextField)
+        currentUser.getUsername(textField: nameTextField)
     }
     
     //Button for sign out user

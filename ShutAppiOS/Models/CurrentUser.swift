@@ -27,15 +27,14 @@ class CurrentUser {
         let fetchedId = Auth.auth().currentUser!.uid
         userId = fetchedId
         return userId
-
     }
     
     // Initiate the username
 
     var username : String = ""
     
-    func getUsername(contactUserEmail: String, conversation: String, textField: UILabel?) {
-        let docRef = db.collection("users").document(Auth.auth().currentUser!.email!)
+    func getUsername(textField: UITextField?) {
+        let docRef = db.collection("users").document(email)
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {
                 if let dataDescription = document.data() {
@@ -52,6 +51,22 @@ class CurrentUser {
         }
     }
     
+    func changeUsername(newName: String, textField: UITextField?) {
+        
+        let updateReference = db.collection("users").document(email)
+        updateReference.getDocument { (document, err) in
+            if let err = err {
+                print(err.localizedDescription)
+            }
+            else {
+                document?.reference.updateData([ "name": newName ])
+                
+                DispatchQueue.main.async {
+                    self.getUsername(textField: textField)
+                }
+            }
+        }
+    }
     // Add contact to the user's contacts in the database
     func setAsContact(contactUserEmail: String, conversation: String) {
         let docRef = db.collection("users").document(Auth.auth().currentUser!.email!)

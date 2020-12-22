@@ -23,7 +23,6 @@ class MyContacts {
     
     // Filtering the contacts when using the SearchBar
     func filterContacts(tableView: UITableView) {
-        print("FILTER CONTACTS")
         filteredContacts = []
         for contact in contacts {
             filteredContacts.append(contact)
@@ -95,7 +94,7 @@ class MyContacts {
     
     // Getting the latest message sent in a conversation with a user
     func getLatestMessages(tableView: UITableView) {
-        for i in filteredContacts {
+        for i in contacts {
             let collection = db.collection("conversations").document(i.conversationId).collection("messages")
             // Reading from the "messages" Collection and ordering them by date
             collection.order(by: "date").addSnapshotListener { (documents, err) in
@@ -108,11 +107,11 @@ class MyContacts {
                             if let document = documents?.documents[index-1] {
                                 if let messageBody = document.data()["body"] as? String{
                                     self.latestMessages.updateValue(messageBody, forKey: i.email)
+                                    self.contacts = self.bubble(arr: &self.contacts)
                                 }
-                                DispatchQueue.main.async {
-                                    //print(self.bubble(arr: &self.contacts))
-                                    tableView.reloadData()
-                                }
+                            }
+                            DispatchQueue.main.async {
+                                tableView.reloadData()
                             }
                         }
                     }
@@ -138,10 +137,7 @@ class MyContacts {
                         if self.filter {
                             self.filterContacts(tableView: tableView)
                         }
-                        print("Contacts \(self.contacts.count)")
-                        print("Filtered Contacts \(self.filteredContacts.count)")
-                        print("--------------")
-                        print()
+                        
                         DispatchQueue.main.async {
                             self.getLatestMessages(tableView: tableView)
                         }
@@ -152,14 +148,15 @@ class MyContacts {
     }
     
     //Bubble sort function
-    func bubble(arr: inout [Contact]) {
-            for i in (1..<arr.count).reversed() {
-                for j in 0..<i where arr[j].latestMessageDate < arr[j + 1].latestMessageDate {
-                    arr.swapAt(j, j + 1)
-                    for k in arr {
-                        print(k.username," + ", k.latestMessageDate)
-                    }
+    func bubble(arr: inout [Contact]) -> [Contact] {
+        for i in (1..<arr.count).reversed() {
+            for j in 0..<i where arr[j].latestMessageDate < arr[j + 1].latestMessageDate {
+                arr.swapAt(j, j + 1)
+                for k in arr {
+                    print(k.username," + ", k.latestMessageDate)
                 }
             }
         }
+        return arr
     }
+}
