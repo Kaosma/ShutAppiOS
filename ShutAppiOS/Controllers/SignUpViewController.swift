@@ -11,10 +11,14 @@ import Firebase
 
 class SignUpViewController: UIViewController {
     
+    @IBOutlet weak var tapTochangeeProfileImage: UIButton!
+    @IBOutlet weak var profileImageView: UIImageView!
     var contacts : [Contact] = []
     @IBOutlet weak var confirmTermsButton: UIButton!
     
     var confirmButtonSelected = false
+    
+    var imagePicker: UIImagePickerController!
     
     // Database initialization
     let db = Firestore.firestore()
@@ -46,6 +50,8 @@ class SignUpViewController: UIViewController {
     
     // Signing up a user with e-mail and password
     @IBAction func signUpButton(_ sender: UIButton) {
+        guard let image = profileImageView.image else{return}
+        
         if let newEmail = emailTextField.text, let newPassword = passwordTextField.text,
            let confirmPassword = confirmPasswordTextField.text, let userName = usernameTextField.text
           {
@@ -55,6 +61,18 @@ class SignUpViewController: UIViewController {
                         print(e)
                         return
                     }
+                    
+                    //Uppload the profile to firebase Storage
+           
+                    
+                    
+                    
+                    //Save the data to firestore
+                    
+                    
+                    
+                    
+                    
                     // Adding the user to the "users" collection in the database
                     guard let authResult = authResult else { return }
                     let user = authResult.user
@@ -70,9 +88,49 @@ class SignUpViewController: UIViewController {
             }
         }
     }
+    
+    //open Image picker
+    @objc func openImagePicker(sender: Any) {
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+    
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        profileImageView.layer.borderWidth = 1
+        profileImageView.layer.masksToBounds = false
+        profileImageView.layer.borderColor = UIColor.black.cgColor
+        profileImageView.layer.cornerRadius = profileImageView.frame.height/2
+        profileImageView.clipsToBounds = true
+        
         ImageService.setImage(imageView: logoImage, imageURL: "https://firebasestorage.googleapis.com/v0/b/shutappios.appspot.com/o/LogoImage%2FShutAppLogo.jpg?alt=media&token=13216931-418f-486a-9702-2985b262ab08")
+        imagePicker = UIImagePickerController()
+        imagePicker.allowsEditing = true
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
+        
+        tapTochangeeProfileImage.addTarget(self, action: #selector(openImagePicker), for: .touchUpInside)
     }
+}
+
+extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let pickedImage = info [UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            self.profileImageView.image = pickedImage
+        }
+        
+        
+        
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    
 }

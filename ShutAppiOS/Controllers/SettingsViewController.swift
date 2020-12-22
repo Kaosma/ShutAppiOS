@@ -16,6 +16,7 @@ class SettingsViewController: UIViewController {
     let currentUser = CurrentUser()
     let db = Firestore.firestore()
     
+    @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var deleteButton: UIButton!
 
@@ -54,6 +55,13 @@ class SettingsViewController: UIViewController {
         
         // Getting the username from the current logged in user
         currentUser.getUsername(usernameTextField: nameTextField)
+        currentUser.getProfileImage(imageView: profileImageView)
+        profileImageView.layer.borderWidth = 1
+        profileImageView.layer.masksToBounds = false
+        profileImageView.layer.borderColor = UIColor.black.cgColor
+        profileImageView.layer.cornerRadius = profileImageView.frame.height/2
+        profileImageView.clipsToBounds = true
+        
     }
     
     //Button for sign out user

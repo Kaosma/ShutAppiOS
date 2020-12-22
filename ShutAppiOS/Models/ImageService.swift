@@ -43,9 +43,9 @@ class ImageService {
     }
     
     //Set image to UIImageView
-    static func setImage(imageView: UIImageView, imageURL: String) {
-        getImage(withURL: URL(string: imageURL)) { image, error in
-            imageView.image = image
+    static func setImage(imageView image: UIImageView, imageURL url: String) {
+        getImage(withURL: URL(string: url)) { retrievedImage, error in
+            image.image = retrievedImage
         }
     }
 }

@@ -50,6 +50,7 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessagesLa
         }
     }
     
+ 
     //Send Button style
     func sendButtonItemBar() {
         messageInputBar.sendButton.configure {
@@ -84,11 +85,12 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessagesLa
         bgImage.contentMode = .scaleToFill
         self.messagesCollectionView.backgroundView = bgImage
     }
-    
+ 
     //Background color för message bubbles
     func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
             return isFromCurrentSender(message: message) ? UIColor.purple : UIColor.lightGray
     }
+  
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,7 +100,6 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessagesLa
         messageInputBar.delegate = self
         loadMessages(sender: contactUser)
         sendItemBar()
-  
         sendButtonItemBar()
     }
     

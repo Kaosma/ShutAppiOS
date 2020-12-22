@@ -30,8 +30,11 @@ class CurrentUser {
     }
     
     // Initiate the username
-
     var username : String = ""
+    
+    // Initiate the photo
+    var profileImage : String = ""
+    
     
     func getUsername(usernameTextField textField: UITextField?) {
         let docRef = db.collection("users").document(email)
@@ -50,6 +53,26 @@ class CurrentUser {
             }
         }
     }
+    
+    func getProfileImage(imageView image: UIImageView) {
+        let docRef = db.collection("users").document(email)
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                if let dataDescription = document.data() {
+                    if let url = dataDescription["imageUrl"] as? String {
+                        self.profileImage = url
+                        
+                        DispatchQueue.main.async {
+                            ImageService.setImage(imageView: image, imageURL: url)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    
     
     func changeUsername(newName name: String, usernameTextField textField: UITextField?) {
         
@@ -136,11 +159,40 @@ class CurrentUser {
             self.signOutCurrentUser()
         }
     }
+        
+    //Upload image to firebase Storage 
+    func uploadProfileImage(_ image:UIImage, completion: @escaping ((_ url:URL?)->())) {
+        let storageRef = Storage.storage().reference().child(id)
+
+        guard let imageData = image.jpegData(compressionQuality: 0.75) else { return }
+
+        let metaData = StorageMetadata()
+        metaData.contentType = "image/jpg"
+
+        storageRef.putData(imageData, metadata: metaData) { metaData, error in
+            if error == nil, metaData != nil {
+
+                storageRef.downloadURL { url, error in
+                    completion(url)
+                    // success!
+                    
+                }
+                } else {
+                    // failed
+                    completion(nil)
+                }
+            }
+        }
+    
+    
+    
+    
+    
     
     
     
     func UpdateUI(){
-
+        
         test { (data) in
           //data is value return by test function
             DispatchQueue.main.async {
