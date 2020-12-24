@@ -15,6 +15,7 @@ class SettingsViewController: UIViewController {
     //@IBOutlet weak var EmailTextField: UITextField!
     let currentUser = CurrentUser()
     let db = Firestore.firestore()
+    let imagePicker = UIImagePickerController()
     
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameTextField: UITextField!
@@ -27,6 +28,11 @@ class SettingsViewController: UIViewController {
         }
     }
     
+    @IBAction func editPictureButtonPressed(_ sender: UIButton) {
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.allowsEditing = true
+        present(imagePicker, animated: true, completion: nil)
+    }
     //Delete user Button
     @IBAction func pressedDeleteButton(_ sender: UIButton) {
         
@@ -50,6 +56,8 @@ class SettingsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        imagePicker.delegate = self
         deleteButton.layer.borderWidth = 1.5
         deleteButton.layer.borderColor = UIColor.black.cgColor
         
@@ -68,5 +76,18 @@ class SettingsViewController: UIViewController {
     @IBAction func signOutButton(_ sender: UIButton) {
         self.currentUser.signOutCurrentUser()
         self.performSegue(withIdentifier: "signOutBackToLogin", sender: self)
+    }
+}
+
+extension SettingsViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            profileImageView.image = editedImage
+            // saveImageToFirebase
+            // cacheImage
+        } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            profileImageView.image = originalImage
+        }
+        dismiss(animated: true, completion: nil)
     }
 }
