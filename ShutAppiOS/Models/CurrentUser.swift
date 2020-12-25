@@ -24,35 +24,23 @@ class CurrentUser {
     
     var id : String {
         var userId = ""
-        let fetchedId = Auth.auth().currentUser!.uid
-        userId = fetchedId
+        if let fetchedId = Auth.auth().currentUser?.uid {
+            userId = fetchedId
+        }
         return userId
     }
     
     // Initiate the username
-    var username : String = ""
+    var username : String {
+        var userName = ""
+        if let fetchedName = Auth.auth().currentUser?.displayName {
+            userName = fetchedName
+        }
+        return userName
+    }
     
     // Initiate the photo
     var profileImage : String = ""
-    
-    
-    func getUsername(usernameTextField textField: UITextField?) {
-        let docRef = db.collection("users").document(email)
-        docRef.getDocument { (document, error) in
-            if let document = document, document.exists {
-                if let dataDescription = document.data() {
-                    if let userName = dataDescription["name"] as? String {
-                        self.username = userName
-                        
-                        DispatchQueue.main.async {
-                            textField!.text = userName
-                        }
-                        
-                    }
-                }
-            }
-        }
-    }
     
     func getProfileImage(imageView image: UIImageView) {
         let docRef = db.collection("users").document(email)
@@ -75,18 +63,11 @@ class CurrentUser {
     
     
     func changeUsername(newName name: String, usernameTextField textField: UITextField?) {
-        
-        let updateReference = db.collection("users").document(email)
-        updateReference.getDocument { (document, err) in
-            if let err = err {
-                print(err.localizedDescription)
-            }
-            else {
-                document?.reference.updateData([ "name": name ])
-                
-                DispatchQueue.main.async {
-                    self.getUsername(usernameTextField: textField)
-                }
+        if let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest() {
+            changeRequest.displayName = name
+            changeRequest.commitChanges { (error) in
+                // User Not Updated Alert
+                // User Not Updated Alert
             }
         }
     }
@@ -97,8 +78,6 @@ class CurrentUser {
             if let document = document, document.exists {
                 if let dataDescription = document.data() {
                     if let userName = dataDescription["name"] as? String {
-                        self.username = userName
-
                         DispatchQueue.main.async {
                             let contactsCollection = self.db.collection("users").document(contactEmail).collection("contacts")
                             contactsCollection.document(self.email).setData(["id" : self.id as String,
@@ -113,7 +92,6 @@ class CurrentUser {
     
     //deleting Current User Auth
     func deleteUser() {
-
         //deleting current user from users Collection
         let docRef = self.db.collection("users").document(self.email)
         docRef.delete { error in
@@ -182,7 +160,7 @@ class CurrentUser {
                     completion(nil)
                 }
             }
-        }
+    }
     
     
     

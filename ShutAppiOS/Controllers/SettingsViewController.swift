@@ -60,9 +60,8 @@ class SettingsViewController: UIViewController {
         imagePicker.delegate = self
         deleteButton.layer.borderWidth = 1.5
         deleteButton.layer.borderColor = UIColor.black.cgColor
-        
-        // Getting the username from the current logged in user
-        currentUser.getUsername(usernameTextField: nameTextField)
+        print(currentUser.username)
+        nameTextField.text = currentUser.username
         currentUser.getProfileImage(imageView: profileImageView)
         profileImageView.layer.borderWidth = 1
         profileImageView.layer.masksToBounds = false

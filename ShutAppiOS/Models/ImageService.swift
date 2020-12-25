@@ -8,10 +8,12 @@
 
 import Foundation
 import UIKit
+import Firebase
 
 class ImageService {
     
     static let cache = NSCache<NSString, UIImage>()
+    static let storage = Storage.storage()
     
     //Downloading Image Whit URL
     static func downloadImage(withURL url:URL, completion: @escaping (_ image:UIImage?, _ url:URL)->()) {
@@ -48,4 +50,27 @@ class ImageService {
             image.image = retrievedImage
         }
     }
+    
+    /*static func saveImageToFirebase() {
+        let storageRef = Storage.storage().reference().child()
+
+        guard let imageData = image.jpegData(compressionQuality: 0.75) else { return }
+
+        let metaData = StorageMetadata()
+        metaData.contentType = "image/jpg"
+
+        storageRef.putData(imageData, metadata: metaData) { metaData, error in
+            if error == nil, metaData != nil {
+
+                storageRef.downloadURL { url, error in
+                    completion(url)
+                    // success!
+                    
+                }
+                } else {
+                    // failed
+                    completion(nil)
+                }
+            }
+    }*/
 }

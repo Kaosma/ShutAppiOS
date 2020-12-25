@@ -64,21 +64,15 @@ class SignUpViewController: UIViewController {
                     
                     //Uppload the profile to firebase Storage
            
-                    
-                    
-                    
                     //Save the data to firestore
-                    
-                    
-                    
-                    
                     
                     // Adding the user to the "users" collection in the database
                     guard let authResult = authResult else { return }
                     let user = authResult.user
- 
-                    let values = ["id": user.uid, "name": userName, "terms": self.confirmButtonSelected as Any ] as [String : Any]
+                    user.createProfileChangeRequest().displayName = userName
+                    let values = ["id": user.uid, "terms": self.confirmButtonSelected as Any ] as [String : Any]
                     self.db.collection("users").document(user.email!).setData(values as Any as! [String : Any]) // <------------
+                    
                     let alert = UIAlertController(title: "Done", message: "You are now a member of ShutApp!", preferredStyle: UIAlertController.Style.alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { action in self.performSegue(withIdentifier: "loginAfterSignUpSegue", sender: self) }))
                     self.present(alert, animated: true, completion: nil)
