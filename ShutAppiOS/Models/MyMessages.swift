@@ -21,10 +21,11 @@ class MyMessages {
         let collection = db.collection("conversations").document(senderUser.senderId).collection("messages")
         
         // Reading from the "messages" Collection and ordering them by date
-        collection.order(by: "date").addSnapshotListener { (querySnapshot, err) in
+        collection.order(by: "date").addSnapshotListener { (querySnapshot, error) in
             self.messages = []
-            if let err = err {
-                print("Error getting documents: \(err)")
+            if let e = error {
+                print()
+                print(e)
             } else {
                 for document in querySnapshot!.documents {
                     if let messageBody = document.data()["body"] as? String, let messageSender = document.data()["sender"] as? String, let messageDate = document.data()["date"] as? Double{
@@ -71,11 +72,13 @@ class MyMessages {
                 "body": body,
                 "sender": currentUser.email,
                 "date": Date().timeIntervalSince1970
-            ]) { err in
-                if let err = err {
-                    print("Error writing document: \(err)")
+            ]) { (error) in
+                if let e = error {
+                    print()
+                    print(e)
                 } else {
-                    print("Message Sent")
+                    print()
+                    print("Message Successfully Sent!")
                     if let aes = try? AES(key: "1234567890123456", iv: "abdefdsrfjdirogf"), let aesE = try? aes.encrypt(Array(body.utf8)) {
                            print("AES encrypted: \(aesE)")
                            let aesD = try? aes.decrypt(aesE)

@@ -24,7 +24,7 @@ class SettingsViewController: UIViewController {
 
     @IBAction func updateButtonPressed(_ sender: UIButton) {
         if let text = nameTextField.text {
-            currentUser.changeUsername(newName: text, usernameTextField: nameTextField)
+            UserFunctions().changeUsername(newName: text, usernameTextField: nameTextField)
         }
     }
     
@@ -38,7 +38,7 @@ class SettingsViewController: UIViewController {
         
         let deleteUserAlert = UIAlertController(title: "Refresh", message: "Are you really sure want delete your profile?", preferredStyle: UIAlertController.Style.alert)
         deleteUserAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
-            self.currentUser.deleteUser()
+            UserFunctions().deleteUser()
             self.performSegue(withIdentifier: "signOutBackToLogin", sender: self)
         }))
         deleteUserAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
@@ -48,7 +48,7 @@ class SettingsViewController: UIViewController {
     
     //Reset password button
     @IBAction func changePasswordButton(_ sender: UIButton) {
-            self.currentUser.resetPassWordCurrentUser()
+            UserFunctions().resetPassWord()
             let alert = UIAlertController(title: "Done", message: "A password reset has been sent!", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { action in self.performSegue(withIdentifier: "signOutBackToLogin", sender: self) }))
             self.present(alert, animated: true, completion: nil)
@@ -60,9 +60,8 @@ class SettingsViewController: UIViewController {
         imagePicker.delegate = self
         deleteButton.layer.borderWidth = 1.5
         deleteButton.layer.borderColor = UIColor.black.cgColor
-        print(currentUser.username)
+        ImageService().getProfileImage(imageView: profileImageView)
         nameTextField.text = currentUser.username
-        currentUser.getProfileImage(imageView: profileImageView)
         profileImageView.layer.borderWidth = 1
         profileImageView.layer.masksToBounds = false
         profileImageView.layer.borderColor = UIColor.black.cgColor
@@ -73,7 +72,7 @@ class SettingsViewController: UIViewController {
     
     //Button for sign out user
     @IBAction func signOutButton(_ sender: UIButton) {
-        self.currentUser.signOutCurrentUser()
+        UserFunctions().signOutCurrentUser()
         self.performSegue(withIdentifier: "signOutBackToLogin", sender: self)
     }
 }

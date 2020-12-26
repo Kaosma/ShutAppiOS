@@ -10,6 +10,7 @@
 		3662AF72DACB8A58CD9C5D23 /* Pods_ShutAppiOS_ShutAppiOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BF3D7AC342F7AECC4680606 /* Pods_ShutAppiOS_ShutAppiOSUITests.framework */; };
 		62E3BEF72A487B88EA38243A /* Pods_ShutAppiOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4813A8813DC968F5B65C5456 /* Pods_ShutAppiOSTests.framework */; };
 		687F65C269135472E2E344D9 /* Pods_ShutAppiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 952CAF9BBBCC9D7500D64A4A /* Pods_ShutAppiOS.framework */; };
+		FB393E5A2596CDD800DF4F2E /* UserFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB393E592596CDD800DF4F2E /* UserFunctions.swift */; };
 		FBA412FF258A19ED0045B1B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA412FE258A19ED0045B1B5 /* AppDelegate.swift */; };
 		FBA41301258A19ED0045B1B5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBA41300258A19ED0045B1B5 /* SceneDelegate.swift */; };
 		FBA41306258A19ED0045B1B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBA41304258A19ED0045B1B5 /* Main.storyboard */; };
@@ -61,6 +62,7 @@
 		A89D92C9BE7B8A0E7B6DB945 /* Pods-ShutAppiOS-ShutAppiOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShutAppiOS-ShutAppiOSUITests.debug.xcconfig"; path = "Target Support Files/Pods-ShutAppiOS-ShutAppiOSUITests/Pods-ShutAppiOS-ShutAppiOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C5B47A90BB436A1CA6F389B1 /* Pods-ShutAppiOS-ShutAppiOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShutAppiOS-ShutAppiOSUITests.release.xcconfig"; path = "Target Support Files/Pods-ShutAppiOS-ShutAppiOSUITests/Pods-ShutAppiOS-ShutAppiOSUITests.release.xcconfig"; sourceTree = "<group>"; };
 		E9B21E488720FDFA04A9BD78 /* Pods-ShutAppiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShutAppiOS.release.xcconfig"; path = "Target Support Files/Pods-ShutAppiOS/Pods-ShutAppiOS.release.xcconfig"; sourceTree = "<group>"; };
+		FB393E592596CDD800DF4F2E /* UserFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFunctions.swift; sourceTree = "<group>"; };
 		FBA412FB258A19ED0045B1B5 /* ShutAppiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShutAppiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBA412FE258A19ED0045B1B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FBA41300258A19ED0045B1B5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				FBA4133E258A1CBC0045B1B5 /* MyContacts.swift */,
 				FBA4133C258A1C9B0045B1B5 /* Contact.swift */,
 				FBA4134A258BAB080045B1B5 /* ImageService.swift */,
+				FB393E592596CDD800DF4F2E /* UserFunctions.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -483,6 +486,7 @@
 				FBA41301258A19ED0045B1B5 /* SceneDelegate.swift in Sources */,
 				FBA41331258A1B8D0045B1B5 /* SignUpViewController.swift in Sources */,
 				FBA4132F258A1B510045B1B5 /* ForgotPasswordViewController.swift in Sources */,
+				FB393E5A2596CDD800DF4F2E /* UserFunctions.swift in Sources */,
 				FBA41339258A1C4F0045B1B5 /* TermsViewController.swift in Sources */,
 				FBA41345258A1D230045B1B5 /* Sender.swift in Sources */,
 				FBA4133F258A1CBC0045B1B5 /* MyContacts.swift in Sources */,

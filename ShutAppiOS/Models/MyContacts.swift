@@ -13,7 +13,6 @@ import Firebase
 class MyContacts {
     let db = Firestore.firestore()
     let currentUser = CurrentUser()
-    
     var filteredContacts : [Contact] = []
     var contacts : [Contact] = []
     var latestMessages = [String:String]()
@@ -30,26 +29,27 @@ class MyContacts {
     }
     
     // Add user as a new contact
-    func addContact(document doc: DocumentSnapshot, contactEmail email: String, table tableView: UITableView) {
+    func addContact(document doc: DocumentSnapshot, contactEmail email: String, contactUsername userName: String, table tableView: UITableView) {
         filter = false
-        let dataDescription = doc.data()
-        if let contactId = dataDescription!["id"] as? String, let contactUsername = dataDescription!["name"] as? String {
-            let conversationsCollection = db.collection("conversations").addDocument(data: [
-                "firstSender" : currentUser.email,
-                "secondSender" : email])
-            
-            let conversationId = conversationsCollection.documentID
-            
-            // Add contact to the user's contacts in the database
-            let contactsCollection = self.db.collection("users").document(currentUser.email).collection("contacts")
-            contactsCollection.document(email).setData(["id" : contactId as String,
-                                                        "name" : contactUsername as String,
-                                                        "conversation" : conversationId as String])
-            let newContact = Contact(username: contactUsername, email: email, id: contactId, conversationId: conversationId)
-            filteredContacts.append(newContact)
+        if let dataDescription = doc.data() {
+            if let contactId = dataDescription["id"] as? String {
+                let conversationsCollection = db.collection("conversations").addDocument(data: [
+                    "firstSender" : currentUser.email,
+                    "secondSender" : email])
+                
+                let conversationId = conversationsCollection.documentID
+                
+                // Add contact to the user's contacts in the database
+                let contactsCollection = self.db.collection("users").document(currentUser.email).collection("contacts")
+                contactsCollection.document(email).setData(["id" : contactId as String,
+                                                            "name" : userName as String,
+                                                            "conversation" : conversationId as String])
+                let newContact = Contact(username: userName, email: email, id: contactId, conversationId: conversationId)
+                filteredContacts.append(newContact)
 
-            DispatchQueue.main.async {
-                self.currentUser.setAsContact(contactUserEmail: email, conversationId: conversationId)
+                DispatchQueue.main.async {
+                    UserFunctions().setMyUserAsContact(contactUserEmail: email, conversationId: conversationId)
+                }
             }
         }
     }
@@ -58,11 +58,13 @@ class MyContacts {
     func deleteContact(indexPath index: IndexPath, table tableView: UITableView) {
         let item = filteredContacts[index.row]
         filter = false
-        db.collection("users").document(self.currentUser.email).collection("contacts").document(item.email).delete() { err in
-            if let err = err {
-                print("Error removing document: \(err)")
+        db.collection("users").document(self.currentUser.email).collection("contacts").document(item.email).delete() { (error) in
+            if let e = error {
+                print()
+                print(e)
             } else {
-                print("Contact removed!")
+                print()
+                print("Contact Successfully Removed!")
                 self.deleteMyUserAsContact(indexPath: index, table: tableView)
                 self.deleteConversation(conversationId: item.conversationId)
             }
@@ -72,22 +74,26 @@ class MyContacts {
     // Delete me as a contact for my deleted contact
     func deleteMyUserAsContact(indexPath index: IndexPath, table tableView: UITableView) {
         let item = filteredContacts[index.row]
-        db.collection("users").document(item.email).collection("contacts").document(self.currentUser.email).delete() { err in
-            if let err = err {
-                print("Error removing document: \(err)")
+        db.collection("users").document(item.email).collection("contacts").document(self.currentUser.email).delete() { (error) in
+            if let e = error {
+                print()
+                print(e)
             } else {
-                print("Removed me as contact!")
+                print()
+                print("My User Successfully Removed As Contact!")
             }
         }
     }
     
     // Delete conversation
     func deleteConversation(conversationId conversation: String) {
-        db.collection("conversations").document(conversation).delete() { err in
-            if let err = err {
-                print("Error removing document: \(err)")
+        db.collection("conversations").document(conversation).delete() { (error) in
+            if let e = error {
+                print()
+                print(e)
             } else {
-                print("Removed conversation!")
+                print()
+                print("Conversation Successfully Removed!")
             }
         }
     }
@@ -97,10 +103,11 @@ class MyContacts {
         for i in contacts {
             let collection = db.collection("conversations").document(i.conversationId).collection("messages")
             // Reading from the "messages" Collection and ordering them by date
-            collection.order(by: "date").addSnapshotListener { (documents, err) in
+            collection.order(by: "date").addSnapshotListener { (documents, error) in
                 
-                if let err = err {
-                    print("Error getting documents: \(err)")
+                if let e = error {
+                    print()
+                    print(e)
                 } else {
                     if let index = (documents?.documents.count) {
                         if index != 0 {
@@ -123,10 +130,11 @@ class MyContacts {
     func getContactsFromDatabase(table tableView: UITableView) {
         let collection = db.collection("users").document(currentUser.email).collection("contacts")
         
-        collection.addSnapshotListener { (querySnapshot, err) in
+        collection.addSnapshotListener { (querySnapshot, error) in
             self.contacts = []
-            if let err = err {
-                print("Error getting documents: \(err)")
+            if let e = error {
+                print()
+                print(e)
             } else {
                 for document in querySnapshot!.documents {
                     if let contactID = document.data()["id"] as? String, let contactUsername = document.data()["name"] as? String, let contactConversation = document.data()["conversation"] as? String {
@@ -153,6 +161,7 @@ class MyContacts {
             for j in 0..<i where arr[j].latestMessageDate < arr[j + 1].latestMessageDate {
                 arr.swapAt(j, j + 1)
                 for k in arr {
+                    print()
                     print(k.username," + ", k.latestMessageDate)
                 }
             }

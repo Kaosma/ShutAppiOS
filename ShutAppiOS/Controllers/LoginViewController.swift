@@ -46,7 +46,7 @@ class LoginViewController: UIViewController {
             self.performSegue(withIdentifier: "GoToContactsScreen", sender: self)
         }
         if ((Auth.auth().currentUser?.uid) == nil) {
-            currenUser.signOutCurrentUser()
+            UserFunctions().signOutCurrentUser()
         }
     }
     

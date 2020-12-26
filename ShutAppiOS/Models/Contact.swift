@@ -15,7 +15,6 @@ struct Contact {
     let id : String
     let conversationId : String
     var latestMessageDate : Double = 0
-
 }
 
 

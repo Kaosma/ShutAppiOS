@@ -69,7 +69,14 @@ class SignUpViewController: UIViewController {
                     // Adding the user to the "users" collection in the database
                     guard let authResult = authResult else { return }
                     let user = authResult.user
-                    user.createProfileChangeRequest().displayName = userName
+                    let changeRequest = user.createProfileChangeRequest()
+                    changeRequest.displayName = userName
+                    changeRequest.commitChanges { (error) in
+                        if let e = error {
+                            print()
+                            print(e)
+                        }
+                    }
                     let values = ["id": user.uid, "terms": self.confirmButtonSelected as Any ] as [String : Any]
                     self.db.collection("users").document(user.email!).setData(values as Any as! [String : Any]) // <------------
                     

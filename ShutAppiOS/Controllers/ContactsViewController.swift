@@ -27,13 +27,15 @@ class ContactsViewController: UIViewController {
     // MARK: IBActions
     // Adding another user to contacts
     @IBAction func addContactButtonPressed(_ sender: UIBarButtonItem) {
-        var textField = UITextField()
-        let alert = UIAlertController(title: "Add New Contact", message: "Enter the contact's e-mail.", preferredStyle: .alert)
+        var emailTextField = UITextField()
+        var nameTextField = UITextField()
+        let alert = UIAlertController(title: "Add New Contact", message: "Enter the contact's e-mail and the contact's username", preferredStyle: .alert)
         
         // Creating an alert that allows the user to pass in a new contact's e-mail
         let action = UIAlertAction(title: "Add", style: .default) { (action) in
-            if !textField.text!.trimmingCharacters(in: .whitespaces).isEmpty {
-                let contactEmail = textField.text!
+            if !emailTextField.text!.trimmingCharacters(in: .whitespaces).isEmpty && !nameTextField.text!.trimmingCharacters(in: .whitespaces).isEmpty{
+                let contactEmail = emailTextField.text!
+                let contactUsername = nameTextField.text!
                 
                 if contactEmail != self.currentUser.email {
                     let docRef = self.db.collection("users").document(contactEmail)
@@ -41,7 +43,7 @@ class ContactsViewController: UIViewController {
                     docRef.getDocument { (document, error) in
                         // If the new contact's email exists -> Add the contact
                         if let document = document, document.exists {
-                            self.contactController.addContact(document: document, contactEmail: contactEmail, table: self.contactTableView)
+                            self.contactController.addContact(document: document, contactEmail: contactEmail, contactUsername: contactUsername, table: self.contactTableView)
                             let dismissAlert = UIAlertController(title: "Contact Added!", message: "", preferredStyle: .alert)
                             
                             dismissAlert.addAction(UIAlertAction(title: "OK",
@@ -70,7 +72,11 @@ class ContactsViewController: UIViewController {
         // Styling the alert
         alert.addTextField { (alertTextField) in
             alertTextField.placeholder = "john@doe.com"
-            textField = alertTextField
+            emailTextField = alertTextField
+        }
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "John Doe"
+            nameTextField = alertTextField
         }
         
         alert.addAction(action)
