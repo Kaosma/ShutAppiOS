@@ -56,19 +56,22 @@ class SettingsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //print(currentUser.profileImage)
         imagePicker.delegate = self
         deleteButton.layer.borderWidth = 1.5
         deleteButton.layer.borderColor = UIColor.black.cgColor
-        ImageService().getProfileImage(imageView: profileImageView)
         nameTextField.text = currentUser.username
         profileImageView.layer.borderWidth = 1
         profileImageView.layer.masksToBounds = false
         profileImageView.layer.borderColor = UIColor.black.cgColor
         profileImageView.layer.cornerRadius = profileImageView.frame.height/2
         profileImageView.clipsToBounds = true
-        
     }
+    
+
+        
+
+       
     
     //Button for sign out user
     @IBAction func signOutButton(_ sender: UIButton) {

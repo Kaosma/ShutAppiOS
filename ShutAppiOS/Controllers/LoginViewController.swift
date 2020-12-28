@@ -21,6 +21,14 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+
+        if CheckInternetConnection.shared.isConnected{
+            print("You're connected")
+        }else {
+            print("you are not conntected to internet")
+        }
+        
         ImageService.setImage(imageView: logoImage, imageURL: "https://firebasestorage.googleapis.com/v0/b/shutappios.appspot.com/o/LogoImage%2FShutAppLogo.jpg?alt=media&token=13216931-418f-486a-9702-2985b262ab08")
     }
     
@@ -42,12 +50,14 @@ class LoginViewController: UIViewController {
     }
     
     func checkUserInfo(){
-        if ((Auth.auth().currentUser?.uid) != nil) {
+        if currenUser.id != "" {
             self.performSegue(withIdentifier: "GoToContactsScreen", sender: self)
         }
-        if ((Auth.auth().currentUser?.uid) == nil) {
+        else {
             UserFunctions().signOutCurrentUser()
         }
     }
-    
 }
+
+
+

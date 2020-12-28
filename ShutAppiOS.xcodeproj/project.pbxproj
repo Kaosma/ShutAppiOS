@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3662AF72DACB8A58CD9C5D23 /* Pods_ShutAppiOS_ShutAppiOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BF3D7AC342F7AECC4680606 /* Pods_ShutAppiOS_ShutAppiOSUITests.framework */; };
+		58C8E72B2599E3F50026B38A /* CheckInternetConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C8E72A2599E3F50026B38A /* CheckInternetConnection.swift */; };
 		62E3BEF72A487B88EA38243A /* Pods_ShutAppiOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4813A8813DC968F5B65C5456 /* Pods_ShutAppiOSTests.framework */; };
 		687F65C269135472E2E344D9 /* Pods_ShutAppiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 952CAF9BBBCC9D7500D64A4A /* Pods_ShutAppiOS.framework */; };
 		FB393E5A2596CDD800DF4F2E /* UserFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB393E592596CDD800DF4F2E /* UserFunctions.swift */; };
@@ -54,6 +55,7 @@
 
 /* Begin PBXFileReference section */
 		4813A8813DC968F5B65C5456 /* Pods_ShutAppiOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShutAppiOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		58C8E72A2599E3F50026B38A /* CheckInternetConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInternetConnection.swift; sourceTree = "<group>"; };
 		5BF3D7AC342F7AECC4680606 /* Pods_ShutAppiOS_ShutAppiOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShutAppiOS_ShutAppiOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		60D3AB9A6D9E042C98DFA27A /* Pods-ShutAppiOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShutAppiOSTests.debug.xcconfig"; path = "Target Support Files/Pods-ShutAppiOSTests/Pods-ShutAppiOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7B336956A70D4E2DE2B5DC16 /* Pods-ShutAppiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShutAppiOS.debug.xcconfig"; path = "Target Support Files/Pods-ShutAppiOS/Pods-ShutAppiOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				FBA4133C258A1C9B0045B1B5 /* Contact.swift */,
 				FBA4134A258BAB080045B1B5 /* ImageService.swift */,
 				FB393E592596CDD800DF4F2E /* UserFunctions.swift */,
+				58C8E72A2599E3F50026B38A /* CheckInternetConnection.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -492,6 +495,7 @@
 				FBA4133F258A1CBC0045B1B5 /* MyContacts.swift in Sources */,
 				FBA41343258A1CF70045B1B5 /* Message.swift in Sources */,
 				FBA4133B258A1C800045B1B5 /* ChatViewController.swift in Sources */,
+				58C8E72B2599E3F50026B38A /* CheckInternetConnection.swift in Sources */,
 				FBA41341258A1CDE0045B1B5 /* CurrentUser.swift in Sources */,
 				FBA41333258A1BF40045B1B5 /* ContactsViewController.swift in Sources */,
 			);

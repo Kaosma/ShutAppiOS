@@ -40,5 +40,14 @@ struct CurrentUser {
     }
     
     // Initiate the image
-    var profileImage : String = ""
+    //var profileImage : String = ""
+    
+    var profileImage : URL {
+        let url = URL(string: " ")
+        var currentUserProfileImage = url
+        if let fetchedImage = Auth.auth().currentUser?.photoURL{
+            currentUserProfileImage = fetchedImage
+        }
+        return currentUserProfileImage!
+    }
 }

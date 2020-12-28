@@ -11,12 +11,14 @@ import Firebase
 
 class SignUpViewController: UIViewController {
     
+    @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var tapTochangeeProfileImage: UIButton!
     @IBOutlet weak var profileImageView: UIImageView!
     var contacts : [Contact] = []
     @IBOutlet weak var confirmTermsButton: UIButton!
     
     var confirmButtonSelected = false
+    var profileImageService: ImageService!
     
     var imagePicker: UIImagePickerController!
     
@@ -50,41 +52,51 @@ class SignUpViewController: UIViewController {
     
     // Signing up a user with e-mail and password
     @IBAction func signUpButton(_ sender: UIButton) {
-        guard let image = profileImageView.image else{return}
-        
+      
         if let newEmail = emailTextField.text, let newPassword = passwordTextField.text,
-           let confirmPassword = confirmPasswordTextField.text, let userName = usernameTextField.text
+           let confirmPassword = confirmPasswordTextField.text, let userName = usernameTextField.text,
+           let image = profileImageView.image
           {
             if newPassword == confirmPassword && confirmButtonSelected {
                 Auth.auth().createUser(withEmail: newEmail, password: newPassword, completion: { authResult, error in
                     if let e = error {
                         print(e)
+                        self.errorLabel.text = e.localizedDescription
+
                         return
                     }
                     
                     //Uppload the profile to firebase Storage
            
+                        guard let authResult = authResult else { return }
+                        let user = authResult.user
+                        let changeRequest = user.createProfileChangeRequest()
+                        changeRequest.displayName = userName
+                        changeRequest.photoURL =
+                            NSURL(string: "https://firebasestorage.googleapis.com/v0/b/shutappios.appspot.com/o/LogoImage%2FShutAppLogo.jpg?alt=media&token=13216931-418f-486a-9702-2985b262ab08") as URL?
+    
+                       // self.profileImageService.saveImage(profileImageURL: url!) { success in
+                        //}
+                        
+                        changeRequest.commitChanges { (error) in
+                            if let e = error {
+                                print()
+                                print(e)
+
+                            }
+                        }
+                        
+                        
+                        let values = ["id": user.uid, "terms": self.confirmButtonSelected as Any ] as [String : Any]
+                        self.db.collection("users").document(user.email!).setData(values as Any as! [String : Any]) // <------------
+                   
                     //Save the data to firestore
                     
-                    // Adding the user to the "users" collection in the database
-                    guard let authResult = authResult else { return }
-                    let user = authResult.user
-                    let changeRequest = user.createProfileChangeRequest()
-                    changeRequest.displayName = userName
-                    changeRequest.commitChanges { (error) in
-                        if let e = error {
-                            print()
-                            print(e)
-                        }
-                    }
-                    let values = ["id": user.uid, "terms": self.confirmButtonSelected as Any ] as [String : Any]
-                    self.db.collection("users").document(user.email!).setData(values as Any as! [String : Any]) // <------------
+           
                     
                     let alert = UIAlertController(title: "Done", message: "You are now a member of ShutApp!", preferredStyle: UIAlertController.Style.alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { action in self.performSegue(withIdentifier: "loginAfterSignUpSegue", sender: self) }))
                     self.present(alert, animated: true, completion: nil)
-                    
-            
                 })
             }
         }
