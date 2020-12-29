@@ -26,10 +26,16 @@ class LoginViewController: UIViewController {
         if CheckInternetConnection.shared.isConnected{
             print("You're connected")
         }else {
+            let alert = UIAlertController(title: "Alert", message: "No internet", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
             print("you are not conntected to internet")
+            return
         }
         
-        ImageService.setImage(imageView: logoImage, imageURL: "https://firebasestorage.googleapis.com/v0/b/shutappios.appspot.com/o/LogoImage%2FShutAppLogo.jpg?alt=media&token=13216931-418f-486a-9702-2985b262ab08")
+        ImageService.getImage(imageView: logoImage, urlString: "https://firebasestorage.googleapis.com/v0/b/shutappios.appspot.com/o/LogoImage%2FShutAppLogo.jpg?alt=media&token=13216931-418f-486a-9702-2985b262ab08") { (name, image, error)  in
+            print("done")
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

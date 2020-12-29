@@ -15,7 +15,7 @@ class ImageService {
     static let cache = NSCache<NSString, UIImage>()
     static let storage = Storage.storage()
     static let db = Firestore.firestore()
-    
+    /*
     // Downloading image with URL
     static func downloadImage(withURL url:URL, completion: @escaping (_ image:UIImage?, _ url:URL)->()) {
         let dataTask = URLSession.shared.dataTask(with: url) { data, responseURL, error in
@@ -35,9 +35,9 @@ class ImageService {
             }
         }
         dataTask.resume()
-    }
+    }*/
     
-    
+    /*
     func getProfileImage(imageView image: UIImageView) {
         let user = CurrentUser()
         let docRef = ImageService.db.collection("users").document(user.email)
@@ -55,21 +55,27 @@ class ImageService {
                 }
             }
         }
-    }
-    /*
+    }*/
+    
     // Get the downloaded image
     static func getImage(imageView: UIImageView, urlString: String, completion: @escaping (String, UIImage?, Error?) -> Void) {
-        var imageKey = ""
+        
+        var imageKey: String = ""
+        
         if let url = URL(string: urlString) {
+            
             imageKey = url.lastPathComponent
-            print("hej där")
+            
+         
             if let image = cache.object(forKey: imageKey as NSString) {
-                print("image retrieved")
                 imageView.image = image
+                print("image from cache")
                 completion(imageKey, image, nil)
                 return
-            }else {
+            }
+            
                 URLSession.shared.dataTask(with: url) { (data, response, error) in
+                    
                     if let e = error {
                         completion(imageKey, nil, e)
                     } else {
@@ -82,14 +88,11 @@ class ImageService {
                             }
                         }
                     }
-                }.resume()
-            }
-            
-            
+            }.resume()
         }
     }
-    */
-
+    
+    /*
     // Get the downloaded image
     static func getImage(withURL url:URL?, completion: @escaping (_ image:UIImage?, _ url:URL)->()) {
         if let _url = url {
@@ -108,7 +111,7 @@ class ImageService {
             image.image = retrievedImage
         }
     }
-    
+    */
 
     
     
