@@ -56,8 +56,39 @@ class ImageService {
             }
         }
     }
-    
-
+    /*
+    // Get the downloaded image
+    static func getImage(imageView: UIImageView, urlString: String, completion: @escaping (String, UIImage?, Error?) -> Void) {
+        var imageKey = ""
+        if let url = URL(string: urlString) {
+            imageKey = url.lastPathComponent
+            print("hej där")
+            if let image = cache.object(forKey: imageKey as NSString) {
+                print("image retrieved")
+                imageView.image = image
+                completion(imageKey, image, nil)
+                return
+            }else {
+                URLSession.shared.dataTask(with: url) { (data, response, error) in
+                    if let e = error {
+                        completion(imageKey, nil, e)
+                    } else {
+                        if let data = data, let image = UIImage(data: data) {
+                            print("image stored")
+                            cache.setObject(image, forKey: imageKey as NSString)
+                            DispatchQueue.main.async {
+                                completion(imageKey, image, nil)
+                                imageView.image = image
+                            }
+                        }
+                    }
+                }.resume()
+            }
+            
+            
+        }
+    }
+    */
 
     // Get the downloaded image
     static func getImage(withURL url:URL?, completion: @escaping (_ image:UIImage?, _ url:URL)->()) {
