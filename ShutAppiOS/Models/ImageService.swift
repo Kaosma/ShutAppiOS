@@ -5,7 +5,6 @@
 //  Created by Erik Ugarte on 2020-12-17.
 //  Copyright © 2020 ShutApp. All rights reserved.
 //
-
 import Foundation
 import UIKit
 import Firebase
@@ -15,50 +14,28 @@ class ImageService {
     static let cache = NSCache<NSString, UIImage>()
     static let storage = Storage.storage()
     static let db = Firestore.firestore()
-    /*
-    // Downloading image with URL
-    static func downloadImage(withURL url:URL, completion: @escaping (_ image:UIImage?, _ url:URL)->()) {
-        let dataTask = URLSession.shared.dataTask(with: url) { data, responseURL, error in
-            var downloadedImage:UIImage?
-            
-            if let data = data {
-                downloadedImage = UIImage(data: data)
-                
-            }
-            if downloadedImage != nil {
-                cache.setObject(downloadedImage!, forKey: url.absoluteString as NSString)
-               
-            }
-            DispatchQueue.main.async {
-                completion(downloadedImage, url)
-                
-            }
-        }
-        dataTask.resume()
-    }*/
     
-    /*
-    func getProfileImage(imageView image: UIImageView) {
-        let user = CurrentUser()
-        let docRef = ImageService.db.collection("users").document(user.email)
-        docRef.getDocument { (document, error) in
-            if let document = document, document.exists {
-                if let dataDescription = document.data() {
-                    if let url = dataDescription["imageUrl"] as? String {
-                        //self.profileImage = url
-                        
-                        DispatchQueue.main.async {
-                            ImageService.setImage(imageView: image, imageURL: url)
-                            
-                        }
-                    }
+
+
+    // Retrieve the user's profile image from Firebase Storage
+    static func getProfileImage(imageView: UIImageView) {
+        let currentUser = CurrentUser()
+        if let url = URL(string: currentUser.profileImage) {
+            let dataTask = URLSession.shared.dataTask(with: url) { data, responseURL, error in
+                var downloadedImage:UIImage?
+                
+                if let data = data {
+                    downloadedImage = UIImage(data: data)
                 }
-            }
+                if downloadedImage != nil {
+                    imageView.image = downloadedImage
+                }
+            }.resume()
         }
-    }*/
+    }
     
     // Get the downloaded image
-    static func getImage(imageView: UIImageView, urlString: String, completion: @escaping (String, UIImage?, Error?) -> Void) {
+    static func cacheImage(imageView: UIImageView, urlString: String, completion: @escaping (String, UIImage?, Error?) -> Void) {
         
         var imageKey: String = ""
         
@@ -92,51 +69,39 @@ class ImageService {
         }
     }
     
-    /*
-    // Get the downloaded image
-    static func getImage(withURL url:URL?, completion: @escaping (_ image:UIImage?, _ url:URL)->()) {
-        if let _url = url {
-            if let image = cache.object(forKey: _url.absoluteString as NSString) {
-                completion(image, _url)
-                print("HEJSAN\(String(describing: url))")
-            } else {
-                downloadImage(withURL: _url, completion: completion)
-            }
-        }
-    }
-    
-    // Set the retrieved image for the UIImageView
-    static func setImage(imageView image: UIImageView, imageURL url: String) {
-        getImage(withURL: URL(string: url)) { retrievedImage, error in
-            image.image = retrievedImage
-        }
-    }
-    */
 
-    
-    
-    //Upload image to firebase Storage
-    func uploadProfileImage(_ image:UIImage, completion: @escaping ((_ url:URL?)->())) {
-        
-        let user = CurrentUser()
-        let storageRef = Storage.storage().reference().child(user.id)
-        
-        guard let imageData = image.jpegData(compressionQuality: 0.75) else { return }
-        
-        let metaData = StorageMetadata()
-        metaData.contentType = "LogoImage/jpg"
-        
-        storageRef.putData(imageData, metadata: metaData) { metaData, error in
-            if error == nil, metaData != nil {
-                
-                storageRef.downloadURL { url, error in
-                    completion(url)
-                    // success!
+    // Upload profile image to Firebase Storage
+    static func uploadProfileImageToStorage(selectedImage image: UIImage) {
+        let currentUser = CurrentUser()
+        let storageRef = storage.reference().child("profileImages/\(currentUser.id)ProfileImage.jpg")
+        if let uploadData = image.pngData(){
+            storageRef.putData(uploadData, metadata: nil, completion: { (metadata, error) in
+                if error != nil {
+                    print(error as Any)
+                    return
+                } else {
+                    storageRef.downloadURL(completion: { (url, error) in
+                        print("Image URL: \((url?.absoluteString)!)")
+                        if let retrievedURL = url {
+                            let forestRef = storage.reference().child("profileImages/\(currentUser.id)ProfileImage.jpg");
+                            // Create file metadata to update
+                            let newMetadata = StorageMetadata()
+                            newMetadata.cacheControl = "public,max-age=300";
+                            newMetadata.contentType = "image/jpeg";
+
+                            // Update metadata properties
+                            forestRef.updateMetadata(newMetadata) { metadata, error in
+                                if let e = error {
+                                    print(e)
+                                } else {
+                                    UserFunctions().changeProfileImage(newURL: retrievedURL)
+                                }
+                            }
+                        }
+                    })
                 }
-            } else {
-                // failed
-                completion(nil)
-            }
+            })
         }
     }
 }
+

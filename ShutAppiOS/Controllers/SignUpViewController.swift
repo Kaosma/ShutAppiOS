@@ -6,6 +6,14 @@
 //  Copyright © 2020 ShutApp. All rights reserved.
 //
 
+//
+//  SignUpViewController.swift
+//  ShutAppiOS
+//
+//  Created by Erik Ugarte on 2020-12-16.
+//  Copyright © 2020 ShutApp. All rights reserved.
+//
+
 import UIKit
 import Firebase
 
@@ -108,7 +116,7 @@ class SignUpViewController: UIViewController {
     }
     
 
-
+    // Main program
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -117,7 +125,7 @@ class SignUpViewController: UIViewController {
         profileImageView.layer.borderColor = UIColor.black.cgColor
         profileImageView.layer.cornerRadius = profileImageView.frame.height/2
         profileImageView.clipsToBounds = true
-        ImageService.getImage(imageView: logoImage, urlString: "https://firebasestorage.googleapis.com/v0/b/shutappios.appspot.com/o/LogoImage%2FShutAppLogo.jpg?alt=media&token=13216931-418f-486a-9702-2985b262ab08") { (name, image, error)  in
+        ImageService.cacheImage(imageView: logoImage, urlString: "https://firebasestorage.googleapis.com/v0/b/shutappios.appspot.com/o/LogoImage%2FShutAppLogo.jpg?alt=media&token=13216931-418f-486a-9702-2985b262ab08") { (name, image, error)  in
             print("done")
         }
         /*ImageService.setImage(imageView: logoImage, imageURL: "https://firebasestorage.googleapis.com/v0/b/shutappios.appspot.com/o/LogoImage%2FShutAppLogo.jpg?alt=media&token=13216931-418f-486a-9702-2985b262ab08")*/
@@ -130,6 +138,7 @@ class SignUpViewController: UIViewController {
     }
 }
 
+// Image Picker Controller Functions
 extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -138,11 +147,11 @@ extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationCon
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        if let pickedImage = info [UIImagePickerController.InfoKey.editedImage] as? UIImage {
+        if let pickedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             self.profileImageView.image = pickedImage
+        } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            profileImageView.image = originalImage
         }
-        
-        
         
         picker.dismiss(animated: true, completion: nil)
     }

@@ -27,12 +27,26 @@ class UserFunctions {
                     print()
                     print("Username Successfully Changed!")
                 }
-                // User Not Updated Alert
-                // User Updated Alert
             }
         }
     }
     
+    // Changing the user's profile image reference
+    func changeProfileImage(newURL url: URL) {
+        if let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest() {
+            changeRequest.photoURL = url
+            changeRequest.commitChanges { (error) in
+                if let e = error {
+                    print()
+                    print(e)
+                    return
+                } else {
+                    print()
+                    print("Profile Picture Successfully Changed!")
+                }
+            }
+        }
+    }
     // Set my user as contact to the added contact
     func setMyUserAsContact(contactUserEmail contactEmail: String, conversationId conversation: String) {
         self.db.collection("users").document(contactEmail).collection("contacts").document(currentUser.email).setData(["id" : currentUser.id as String,
@@ -117,3 +131,4 @@ extension UserFunctions {
         }
     }
 }
+

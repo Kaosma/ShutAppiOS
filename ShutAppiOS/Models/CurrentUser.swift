@@ -39,15 +39,11 @@ struct CurrentUser {
         return userName
     }
     
-    // Initiate the image
-    //var profileImage : String = ""
-    
-    var profileImage : URL {
-        let url = URL(string: " ")
-        var currentUserProfileImage = url
-        if let fetchedImage = Auth.auth().currentUser?.photoURL{
-            currentUserProfileImage = fetchedImage
+    var profileImage : String {
+        var url = ""
+        if let fetchedImage = Auth.auth().currentUser?.photoURL {
+            url = fetchedImage.absoluteString
         }
-        return currentUserProfileImage!
+        return url
     }
 }

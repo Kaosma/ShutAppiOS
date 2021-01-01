@@ -22,7 +22,12 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
-
+        
+        
+        ImageService.cacheImage(imageView: logoImage, urlString: "https://firebasestorage.googleapis.com/v0/b/shutappios.appspot.com/o/LogoImage%2FShutAppLogo.jpg?alt=media&token=13216931-418f-486a-9702-2985b262ab08") { (name, image, error)  in
+            print("done")
+        }
+        
         if CheckInternetConnection.shared.isConnected{
             print("You're connected")
         }else {
@@ -32,12 +37,7 @@ class LoginViewController: UIViewController {
             print("you are not conntected to internet")
             return
         }
-        
-        ImageService.getImage(imageView: logoImage, urlString: "https://firebasestorage.googleapis.com/v0/b/shutappios.appspot.com/o/LogoImage%2FShutAppLogo.jpg?alt=media&token=13216931-418f-486a-9702-2985b262ab08") { (name, image, error)  in
-            print("done")
-        }
     }
-    
     override func viewDidAppear(_ animated: Bool) {
         checkUserInfo()
     }
@@ -64,6 +64,5 @@ class LoginViewController: UIViewController {
         }
     }
 }
-
 
 
