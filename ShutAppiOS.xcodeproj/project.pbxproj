@@ -136,6 +136,15 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		58369400259FB16200C20302 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				58C8E72A2599E3F50026B38A /* CheckInternetConnection.swift */,
+				FBA4134A258BAB080045B1B5 /* ImageService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		58DBD045258A3ABF00D98709 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -153,15 +162,10 @@
 		58DBD046258A3AE200D98709 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				FBA41346258A1D400045B1B5 /* MyMessages.swift */,
 				FBA41342258A1CF70045B1B5 /* Message.swift */,
 				FBA41344258A1D230045B1B5 /* Sender.swift */,
 				FBA41340258A1CDE0045B1B5 /* CurrentUser.swift */,
-				FBA4133E258A1CBC0045B1B5 /* MyContacts.swift */,
 				FBA4133C258A1C9B0045B1B5 /* Contact.swift */,
-				FBA4134A258BAB080045B1B5 /* ImageService.swift */,
-				FB393E592596CDD800DF4F2E /* UserFunctions.swift */,
-				58C8E72A2599E3F50026B38A /* CheckInternetConnection.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -211,7 +215,11 @@
 			children = (
 				58DBD047258A3AEA00D98709 /* Views */,
 				58DBD045258A3ABF00D98709 /* Controllers */,
+				58369400259FB16200C20302 /* Services */,
 				58DBD046258A3AE200D98709 /* Models */,
+				FBA41346258A1D400045B1B5 /* MyMessages.swift */,
+				FBA4133E258A1CBC0045B1B5 /* MyContacts.swift */,
+				FB393E592596CDD800DF4F2E /* UserFunctions.swift */,
 				FBA41300258A19ED0045B1B5 /* SceneDelegate.swift */,
 				FBA412FE258A19ED0045B1B5 /* AppDelegate.swift */,
 				FBA41307258A19EF0045B1B5 /* Assets.xcassets */,
