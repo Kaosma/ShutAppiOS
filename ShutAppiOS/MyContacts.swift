@@ -49,10 +49,9 @@ class MyContacts {
                                                             "conversation" : conversationId as String])
                 let newContact = Contact(username: userName, email: email, id: contactId, conversationId: conversationId)
                 filteredContacts.append(newContact)
-
-                DispatchQueue.main.async {
-                    UserFunctions().setMyUserAsContact(contactUserEmail: email, conversationId: conversationId)
-                }
+                
+                // Add my user as contact to the added contact
+                UserFunctions().setMyUserAsContact(contactUserEmail: email, conversationId: conversationId)
             }
         }
     }
@@ -68,15 +67,16 @@ class MyContacts {
             } else {
                 print()
                 print("Contact Successfully Removed!")
-                self.deleteMyUserAsContact(indexPath: index, table: tableView)
+                self.deleteMyUserAsContact(contactItem: item, table: tableView)
                 self.deleteConversation(conversationId: item.conversationId)
+                self.filteredContacts.remove(at: index.row)
+                tableView.reloadData()
             }
         }
     }
     
     // Delete me as a contact for my deleted contact
-    func deleteMyUserAsContact(indexPath index: IndexPath, table tableView: UITableView) {
-        let item = filteredContacts[index.row]
+    func deleteMyUserAsContact(contactItem item: Contact, table tableView: UITableView) {
         db.collection("users").document(item.email).collection("contacts").document(self.currentUser.email).delete() { (error) in
             if let e = error {
                 print()
