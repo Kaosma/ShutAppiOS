@@ -186,6 +186,7 @@ class MyContacts {
                         if self.filter {
                             self.filterContacts()
                         }
+                        tableView.reloadData()
                         
                         DispatchQueue.main.async {
                             self.getLatestMessages(updatingTableView: tableView)
