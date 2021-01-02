@@ -46,6 +46,7 @@ class SignUpViewController: UIViewController {
     
     // Allows checking a box to accept the terms of ShutApp
     @IBAction func confirmTermsButtonAction(_ sender: UIButton) {
+        
         if confirmButtonSelected {
             confirmTermsButton.setImage( UIImage(named: "check_box_outline_blank-24px"), for: .normal)
             confirmButtonSelected = false
@@ -57,11 +58,13 @@ class SignUpViewController: UIViewController {
     
     // Creates a user with email, password, username and profilePictureURL
     @IBAction func signUpButton(_ sender: UIButton) {
+        
         if let newEmail = emailTextField.text, let newPassword = passwordTextField.text,
            let confirmPassword = confirmPasswordTextField.text, let userName = usernameTextField.text,
-           let image = profileImageView.image
-          {
+           let image = profileImageView.image {
+            
             if newPassword == confirmPassword && confirmButtonSelected {
+                
                 Auth.auth().createUser(withEmail: newEmail, password: newPassword, completion: { authResult, error in
                     if let e = error {
                         print(e)
@@ -69,6 +72,7 @@ class SignUpViewController: UIViewController {
 
                         return
                     }
+                    
                     // Upload the profile picture to firebase Storage and save important user information
                     guard let authResult = authResult else { return }
                     let user = authResult.user
@@ -78,6 +82,7 @@ class SignUpViewController: UIViewController {
                     changeRequest.displayName = userName
                     changeRequest.photoURL =
                         NSURL(string: "profileImages/\(id)ProfileImage.jpg") as URL?
+                    
                     changeRequest.commitChanges { (error) in
                         if let e = error {
                             print()
@@ -114,8 +119,8 @@ class SignUpViewController: UIViewController {
         profileImageView.layer.cornerRadius = profileImageView.frame.height/2
         profileImageView.clipsToBounds = true
         ImageService.cacheImage(imageView: logoImage, urlString: "https://firebasestorage.googleapis.com/v0/b/shutappios.appspot.com/o/LogoImage%2FShutAppLogo.jpg?alt=media&token=13216931-418f-486a-9702-2985b262ab08") { (name, image, error)  in
-            print("done")
         }
+        
         /*ImageService.setImage(imageView: logoImage, imageURL: "https://firebasestorage.googleapis.com/v0/b/shutappios.appspot.com/o/LogoImage%2FShutAppLogo.jpg?alt=media&token=13216931-418f-486a-9702-2985b262ab08")*/
         imagePicker = UIImagePickerController()
         imagePicker.allowsEditing = true

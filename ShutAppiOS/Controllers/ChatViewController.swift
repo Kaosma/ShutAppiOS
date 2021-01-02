@@ -48,6 +48,7 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessagesLa
     
     // Sending a message to a contact
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
+        
         if let inputText = messageInputBar.inputTextView.text {
             messageController.sendMessage(collection: messagesCollectionView, sender: contactUser, messageBody: inputText)
             messageInputBar.inputTextView.text = ""
@@ -83,8 +84,8 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessagesLa
         self.messageInputBar.layer.masksToBounds = true
         self.messageInputBar.backgroundView.layer.borderColor = UIColor.white.cgColor
         self.messagesCollectionView.backgroundColor = UIColor(white: 1, alpha: 0.2)
-        let bgImage = UIImageView();
-            bgImage.image = UIImage(named: "snowflake-29366_1280");
+        let bgImage = UIImageView()
+        bgImage.image = UIImage(named: "snowflake-29366_1280")
         bgImage.contentMode = .scaleToFill
         self.messagesCollectionView.backgroundView = bgImage
     }

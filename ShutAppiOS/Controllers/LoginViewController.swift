@@ -26,8 +26,11 @@ class LoginViewController: UIViewController {
     // MARK: IBActions
     // Authenticating and login the user and display user if input is wrong
     @IBAction func loginButtonPressed(_ sender: UIButton) {
+        
         if let inputEmail = emailTextField.text, let inputPassword = passwordTextField.text {
+            
             Auth.auth().signIn(withEmail: inputEmail, password: inputPassword) { [weak self] authResult, error in
+                
                 if let e = error {
                     self?.loginErrorLabel.text = e.localizedDescription
                 } else {
@@ -39,6 +42,7 @@ class LoginViewController: UIViewController {
     
     // MARK: Other Functions
     func checkUserInfo(){
+        
         if currentUser.id != "" {
             self.performSegue(withIdentifier: "GoToContactsScreen", sender: self)
         }
@@ -57,7 +61,7 @@ class LoginViewController: UIViewController {
         
         if CheckInternetConnection.shared.isConnected{
             print("You're connected")
-        }else {
+        } else {
             let alert = UIAlertController(title: "Alert", message: "No internet", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)

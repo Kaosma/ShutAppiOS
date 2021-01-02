@@ -27,6 +27,7 @@ class SettingsViewController: UIViewController {
     // MARK: IBActions
     // Updating the username for the currently logged in user
     @IBAction func updateButtonPressed(_ sender: UIButton) {
+        
         if let text = nameTextField.text {
             UserFunctions().changeUsername(newName: text, usernameTextField: nameTextField)
         }
@@ -43,12 +44,15 @@ class SettingsViewController: UIViewController {
     @IBAction func pressedDeleteButton(_ sender: UIButton) {
         
         let deleteUserAlert = UIAlertController(title: "Refresh", message: "Are you really sure want delete your profile?", preferredStyle: UIAlertController.Style.alert)
+        
         deleteUserAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
             UserFunctions().deleteUser()
             self.performSegue(withIdentifier: "signOutBackToLogin", sender: self)
         }))
+        
         deleteUserAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
         }))
+        
         present(deleteUserAlert, animated: true, completion: nil)
     }
     
@@ -85,13 +89,16 @@ class SettingsViewController: UIViewController {
 // MARK: Class Extensions
 // Handling the UIImagePicker
 extension SettingsViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
         if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             profileImageView.image = editedImage
             ImageService.uploadProfileImageToStorage(selectedImage: editedImage, userId: currentUser.id)
         } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             profileImageView.image = originalImage
         }
+        
         dismiss(animated: true, completion: nil)
     }
 }

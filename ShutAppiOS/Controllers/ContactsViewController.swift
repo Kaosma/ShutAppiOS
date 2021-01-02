@@ -32,7 +32,9 @@ class ContactsViewController: UIViewController {
         
         // Creating an alert that allows the user to pass in a new contact's e-mail
         let action = UIAlertAction(title: "Add", style: .default) { (action) in
-            if !emailTextField.text!.trimmingCharacters(in: .whitespaces).isEmpty && !nameTextField.text!.trimmingCharacters(in: .whitespaces).isEmpty{
+            
+            if !emailTextField.text!.trimmingCharacters(in: .whitespaces).isEmpty && !nameTextField.text!.trimmingCharacters(in: .whitespaces).isEmpty {
+                
                 let contactEmail = emailTextField.text!
                 let contactUsername = nameTextField.text!
                 
@@ -110,11 +112,14 @@ class ContactsViewController: UIViewController {
 // MARK: Class Extensions
 // Handling a SwipeTableViewCell
 extension ContactsViewController: SwipeTableViewCellDelegate {
+    
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        
         guard orientation == .right else { return nil }
         let deleteAction = SwipeAction(style: .destructive, title: "Delete") { (action, indexPath) in
             self.contactController.deleteContact(indexPath: indexPath, updatingTableView: self.contactTableView)
         }
+        
         let changeContactNameAction = SwipeAction(style: .default , title: "Change Name") { (action, indexPath) in
             
             // Creating an alert that allows the user to pass in a new contact's e-mail
@@ -130,6 +135,7 @@ extension ContactsViewController: SwipeTableViewCellDelegate {
                     }
                 } else {}
             }
+            
             // Styling the alert
             alert.addTextField { (alertTextField) in
                 alertTextField.placeholder = "Name/Nickname"
@@ -141,6 +147,7 @@ extension ContactsViewController: SwipeTableViewCellDelegate {
             
             self.present(alert, animated: true, completion: nil)
         }
+        
         return [deleteAction, changeContactNameAction]
     }
 }
@@ -155,31 +162,36 @@ extension ContactsViewController: UITableViewDelegate, UITableViewDataSource {
     
     // Creating each TableViewCell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContactCell", for: indexPath) as! SwipeTableViewCell
         cell.delegate = self
         let contact = self.contactController.filteredContacts[indexPath.row]
         let name = cell.contentView.viewWithTag(1) as! UILabel
         let content = cell.contentView.viewWithTag(2) as! UILabel
         name.text = contact.username
+        
         if let latestMessage = contactController.latestMessages[contact.email] {
             content.text = latestMessage
         } else {
             content.text = "No messages yet"
         }
+        
         return cell
     }
     
     // Handling a selected TableViewCell
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+        
         let contact = self.contactController.filteredContacts[indexPath.row]
         let vc = ChatViewController()
+        
         vc.contactUser = Sender(senderId: contact.conversationId, displayName: contact.username, senderEmail: contact.email)
         vc.title = contact.username
         navigationController?.pushViewController(vc, animated: true)
-        
-
+        tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    // Set the cell height
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
@@ -211,6 +223,7 @@ extension ContactsViewController: UISearchBarDelegate {
                 }
             }
         }
+        
         contactTableView.reloadData()
     }
 }
