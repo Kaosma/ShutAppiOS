@@ -25,7 +25,7 @@ class ImageService {
     static func getProfileImage(imageView: UIImageView) {
         let currentUser = CurrentUser()
         if let url = URL(string: currentUser.profileImage) {
-            let dataTask = URLSession.shared.dataTask(with: url) { data, responseURL, error in
+            URLSession.shared.dataTask(with: url) { data, responseURL, error in
                 var downloadedImage:UIImage?
                 
                 if let data = data {
