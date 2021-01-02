@@ -32,7 +32,7 @@ class MyContacts {
     }
     
     // Add user as a new contact
-    func addContact(document doc: DocumentSnapshot, contactEmail email: String, contactUsername userName: String, table tableView: UITableView) {
+    func addContact(document doc: DocumentSnapshot, contactEmail email: String, contactUsername userName: String, updatingTableView tableView: UITableView) {
         filter = false
         if let dataDescription = doc.data() {
             if let contactId = dataDescription["id"] as? String {
@@ -55,9 +55,26 @@ class MyContacts {
             }
         }
     }
-        
+    
+    // Change name of contact
+    func changeContactName(contactEmail email: String, newName name: String, updatingTableView tableView: UITableView) {
+        let updateReference = self.db.collection("users").document(self.currentUser.email).collection("contacts").document(email)
+        updateReference.getDocument { (document, err) in
+            if let err = err {
+                print(err.localizedDescription)
+            }
+            else {
+                document?.reference.updateData([ "name": name ])
+                tableView.reloadData()
+                let dismissAlert = UIAlertController(title: "Contact name changed", message: "", preferredStyle: .alert)
+                
+                dismissAlert.addAction(UIAlertAction(title: "OK",
+                                                     style: .cancel, handler: nil))
+            }
+        }
+    }
     // Delete contact
-    func deleteContact(indexPath index: IndexPath, table tableView: UITableView) {
+    func deleteContact(indexPath index: IndexPath, updatingTableView tableView: UITableView) {
         let item = filteredContacts[index.row]
         filter = false
         db.collection("users").document(self.currentUser.email).collection("contacts").document(item.email).delete() { (error) in
@@ -67,7 +84,7 @@ class MyContacts {
             } else {
                 print()
                 print("Contact Successfully Removed!")
-                self.deleteMyUserAsContact(contactItem: item, table: tableView)
+                self.deleteMyUserAsContact(contactItem: item, updatingTableView: tableView)
                 self.deleteConversation(conversationId: item.conversationId)
                 self.filteredContacts.remove(at: index.row)
                 tableView.reloadData()
@@ -76,7 +93,7 @@ class MyContacts {
     }
     
     // Delete me as a contact for my deleted contact
-    func deleteMyUserAsContact(contactItem item: Contact, table tableView: UITableView) {
+    func deleteMyUserAsContact(contactItem item: Contact, updatingTableView tableView: UITableView) {
         db.collection("users").document(item.email).collection("contacts").document(self.currentUser.email).delete() { (error) in
             if let e = error {
                 print()
@@ -102,7 +119,7 @@ class MyContacts {
     }
     
     // Getting the latest message sent in a conversation with a user
-    func getLatestMessages(table tableView: UITableView) {
+    func getLatestMessages(updatingTableView tableView: UITableView) {
         for i in contacts {
             let collection = db.collection("conversations").document(i.conversationId).collection("messages")
             // Reading from the "messages" Collection and ordering them by date
@@ -130,7 +147,7 @@ class MyContacts {
         }
     }
     // Loading the contacts from the database
-    func getContactsFromDatabase(table tableView: UITableView) {
+    func getContactsFromDatabase(updatingTableView tableView: UITableView) {
         let collection = db.collection("users").document(currentUser.email).collection("contacts")
         
         collection.addSnapshotListener { (querySnapshot, error) in
@@ -150,7 +167,7 @@ class MyContacts {
                         }
                         
                         DispatchQueue.main.async {
-                            self.getLatestMessages(table: tableView)
+                            self.getLatestMessages(updatingTableView: tableView)
                         }
                     }
                 }

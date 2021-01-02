@@ -42,7 +42,7 @@ class ContactsViewController: UIViewController {
                         
                         // If the new contact's email exists -> Add the contact
                         if let document = document, document.exists {
-                            self.contactController.addContact(document: document, contactEmail: contactEmail, contactUsername: contactUsername, table: self.contactTableView)
+                            self.contactController.addContact(document: document, contactEmail: contactEmail, contactUsername: contactUsername, updatingTableView: self.contactTableView)
                             let dismissAlert = UIAlertController(title: "Contact Added!", message: "", preferredStyle: .alert)
                             dismissAlert.addAction(UIAlertAction(title: "OK",
                                                                  style: .cancel, handler: nil))
@@ -94,7 +94,7 @@ class ContactsViewController: UIViewController {
     // Load the user's contacts into the TableView
     func loadContacts(willFilter: Bool){
         contactController.filter = true
-        contactController.getContactsFromDatabase(table: contactTableView)
+        contactController.getContactsFromDatabase(updatingTableView: contactTableView)
     }
     
 
@@ -113,7 +113,7 @@ extension ContactsViewController: SwipeTableViewCellDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         guard orientation == .right else { return nil }
         let deleteAction = SwipeAction(style: .destructive, title: "Delete") { (action, indexPath) in
-            self.contactController.deleteContact(indexPath: indexPath, table: self.contactTableView)
+            self.contactController.deleteContact(indexPath: indexPath, updatingTableView: self.contactTableView)
         }
         let changeContactNameAction = SwipeAction(style: .default , title: "Change Name") { (action, indexPath) in
             
@@ -126,21 +126,8 @@ extension ContactsViewController: SwipeTableViewCellDelegate {
             let action = UIAlertAction(title: "Done", style: .default) { (action) in
                 if !textField.text!.trimmingCharacters(in: .whitespaces).isEmpty {
                     if let contactName = textField.text {
-                        let updateReference = self.db.collection("users").document(self.currentUser.email).collection("contacts").document(email)
-                        updateReference.getDocument { (document, err) in
-                            if let err = err {
-                                print(err.localizedDescription)
-                            }
-                            else {
-                                document?.reference.updateData([ "name": contactName ])
-                                let dismissAlert = UIAlertController(title: "Contact name changed", message: "", preferredStyle: .alert)
-                                
-                                dismissAlert.addAction(UIAlertAction(title: "OK",
-                                                                     style: .cancel, handler: nil))
-                            }
-                        }
+                        self.contactController.changeContactName(contactEmail: email, newName: contactName, updatingTableView: tableView)
                     }
-                    
                 } else {}
             }
             // Styling the alert
