@@ -5,18 +5,22 @@
 //  Created by Erik Ugarte on 2020-12-17.
 //  Copyright © 2020 ShutApp. All rights reserved.
 //
+
+// MARK: Frameworks
 import Foundation
 import UIKit
 import Firebase
 
+// MARK: Class Declaration
 class ImageService {
     
+    // MARK: Constants and Variables
     static let cache = NSCache<NSString, UIImage>()
     static let storage = Storage.storage()
     static let db = Firestore.firestore()
     
 
-
+    // MARK: ImageFunctions
     // Retrieve the user's profile image from Firebase Storage
     static func getProfileImage(imageView: UIImageView) {
         let currentUser = CurrentUser()
@@ -71,9 +75,8 @@ class ImageService {
     
 
     // Upload profile image to Firebase Storage
-    static func uploadProfileImageToStorage(selectedImage image: UIImage) {
-        let currentUser = CurrentUser()
-        let storageRef = storage.reference().child("profileImages/\(currentUser.id)ProfileImage.jpg")
+    static func uploadProfileImageToStorage(selectedImage image: UIImage, userId id: String) {
+        let storageRef = storage.reference().child("profileImages/\(id)ProfileImage.jpg")
         if let uploadData = image.pngData(){
             storageRef.putData(uploadData, metadata: nil, completion: { (metadata, error) in
                 if error != nil {
@@ -83,7 +86,7 @@ class ImageService {
                     storageRef.downloadURL(completion: { (url, error) in
                         print("Image URL: \((url?.absoluteString)!)")
                         if let retrievedURL = url {
-                            let forestRef = storage.reference().child("profileImages/\(currentUser.id)ProfileImage.jpg");
+                            let forestRef = storage.reference().child("profileImages/\(id)ProfileImage.jpg");
                             // Create file metadata to update
                             let newMetadata = StorageMetadata()
                             newMetadata.cacheControl = "public,max-age=300";

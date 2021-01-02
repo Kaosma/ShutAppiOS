@@ -6,9 +6,11 @@
 //  Copyright © 2020 ShutApp. All rights reserved.
 //
 
+// MARK: Frameworks
 import Foundation
 import MessageKit
 
+// MARK: Struct Declaration
 struct Sender: SenderType {
     var senderId: String
     var displayName: String

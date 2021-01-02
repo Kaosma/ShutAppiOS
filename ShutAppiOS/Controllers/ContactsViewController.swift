@@ -6,15 +6,15 @@
 //  Copyright © 2020 ShutApp. All rights reserved.
 //
 
+// MARK: Frameworks
 import UIKit
 import Firebase
 import SwipeCellKit
 
+// MARK: Class Declaration
 class ContactsViewController: UIViewController {
     
     // MARK: Constants and Variables
-    
-    // Database initialization
     let db = Firestore.firestore()
     let currentUser = CurrentUser()
     var contactController = MyContacts()
@@ -22,7 +22,6 @@ class ContactsViewController: UIViewController {
     
     // MARK: IBOutlets
     @IBOutlet weak var contactTableView: UITableView!
-    
     
     // MARK: IBActions
     // Adding another user to contacts
@@ -39,16 +38,16 @@ class ContactsViewController: UIViewController {
                 
                 if contactEmail != self.currentUser.email {
                     let docRef = self.db.collection("users").document(contactEmail)
-                    
                     docRef.getDocument { (document, error) in
+                        
                         // If the new contact's email exists -> Add the contact
                         if let document = document, document.exists {
                             self.contactController.addContact(document: document, contactEmail: contactEmail, contactUsername: contactUsername, table: self.contactTableView)
                             let dismissAlert = UIAlertController(title: "Contact Added!", message: "", preferredStyle: .alert)
-                            
                             dismissAlert.addAction(UIAlertAction(title: "OK",
                                                                  style: .cancel, handler: nil))
                             self.present(dismissAlert, animated: true, completion: nil)
+                            
                         // If the new contact's email doesn't exist -> Let the user know with an alert
                         } else {
                             let dismissAlert = UIAlertController(title: "User not found", message: "", preferredStyle: .alert)
@@ -69,6 +68,7 @@ class ContactsViewController: UIViewController {
                 }
             } else {}
         }
+        
         // Styling the alert
         alert.addTextField { (alertTextField) in
             alertTextField.placeholder = "john@doe.com"
@@ -85,7 +85,7 @@ class ContactsViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    //Segue to settings
+    // Segue to settings
     @IBAction func goToSettingsButton(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "GoToSettings", sender: self)
     }
@@ -107,7 +107,8 @@ class ContactsViewController: UIViewController {
     }
 }
 
-// MARK: SwipeTableViewCell Functionality
+// MARK: Class Extensions
+// Handling a SwipeTableViewCell
 extension ContactsViewController: SwipeTableViewCellDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         guard orientation == .right else { return nil }
@@ -157,7 +158,7 @@ extension ContactsViewController: SwipeTableViewCellDelegate {
     }
 }
 
-// MARK: TableView Functionality
+// Handling the ContactsTableView
 extension ContactsViewController: UITableViewDelegate, UITableViewDataSource {
     
     // Return number of cells in tableview -> Size of the contacts Array
@@ -195,7 +196,6 @@ extension ContactsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
-    // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -207,7 +207,7 @@ extension ContactsViewController: UITableViewDelegate, UITableViewDataSource {
     
 }
 
-// MARK: SearchBar Functionality
+// Handling the UISearchBar
 extension ContactsViewController: UISearchBarDelegate {
 
     // Searchbar will always control when it's being interracted with

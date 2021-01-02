@@ -6,14 +6,12 @@
 //  Copyright © 2020 ShutApp. All rights reserved.
 //
 
+// MARK: Frameworks
 import Foundation
 import Firebase
 
-// CurrentUser object
+// MARK: Struct Declaration
 struct CurrentUser {
-
-    let db = Firestore.firestore()
-
     var email : String {
         var userEmail = ""
         if let fetchedEmail = Auth.auth().currentUser?.email {
@@ -21,7 +19,6 @@ struct CurrentUser {
         }
         return userEmail
     }
-    
     var id : String {
         var userId = ""
         if let fetchedId = Auth.auth().currentUser?.uid {
@@ -29,8 +26,6 @@ struct CurrentUser {
         }
         return userId
     }
-    
-    // Initiate the username
     var username : String {
         var userName = ""
         if let fetchedName = Auth.auth().currentUser?.displayName {
@@ -38,7 +33,6 @@ struct CurrentUser {
         }
         return userName
     }
-    
     var profileImage : String {
         var url = ""
         if let fetchedImage = Auth.auth().currentUser?.photoURL {

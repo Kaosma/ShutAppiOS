@@ -6,9 +6,10 @@
 //  Copyright © 2020 ShutApp. All rights reserved.
 //
 
+// MARK: Frameworks
 import Foundation
 
-// Contact object
+// MARK: Struct Declaration
 struct Contact {
     let username : String
     let email : String

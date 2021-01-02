@@ -6,6 +6,7 @@
 //  Copyright © 2020 ShutApp. All rights reserved.
 //
 
+// MARK: Frameworks
 import UIKit
 import MessageKit
 import Firebase
@@ -13,18 +14,21 @@ import InputBarAccessoryView
 import MessageInputBar
 import CryptoSwift
 
+// MARK: Class Declaration
 class ChatViewController: MessagesViewController, MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate, MessageInputBarDelegate, InputBarAccessoryViewDelegate {
     
+    // MARK: Constants and Variables
     let messageController = MyMessages()
     let currentUser = Sender(senderId: CurrentUser().email, displayName: CurrentUser().username, senderEmail: CurrentUser().email)
     var contactUser = Sender(senderId: "", displayName: "", senderEmail: "")
-
+    
+    // MARK: Other Functions
     func currentSender () -> SenderType  {
         return currentUser
     }
     
     func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType{
-            return messageController.messages[indexPath.section]
+        return messageController.messages[indexPath.section]
     }
     
     // Return number of cells in MessagesCollectionView -> Size of the chat Array
@@ -32,7 +36,7 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessagesLa
         return messageController.messages.count
     }
     
-    //Text color on messages
+    // Message textcolor
     func textColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
             return .white
     }
@@ -50,7 +54,6 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessagesLa
         }
     }
     
- 
     //Send Button style
     func sendButtonItemBar() {
         messageInputBar.sendButton.configure {
@@ -91,7 +94,7 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessagesLa
             return isFromCurrentSender(message: message) ? UIColor.purple : UIColor.lightGray
     }
   
-    
+    // MARK: Main Program
     override func viewDidLoad() {
         super.viewDidLoad()
         messagesCollectionView.messagesDataSource = self
@@ -102,5 +105,4 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessagesLa
         sendItemBar()
         sendButtonItemBar()
     }
-    
 }

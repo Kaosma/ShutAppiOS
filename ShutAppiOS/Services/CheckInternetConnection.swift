@@ -6,19 +6,17 @@
 //  Copyright © 2020 ShutApp. All rights reserved.
 //
 
+// MARK: Frameworks
 import Foundation
 import Network
 
-
+// MARK: Class Declaration
 final class CheckInternetConnection{
-    
     static let shared = CheckInternetConnection()
-    
     private let queue = DispatchQueue.global()
     private let monitor: NWPathMonitor
     
     public private(set) var isConnected: Bool = false
-    
     public private(set) var connectionType: ConnectionType = .unknown
 
     enum ConnectionType {

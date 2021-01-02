@@ -6,24 +6,21 @@
 //  Copyright © 2020 ShutApp. All rights reserved.
 //
 
+// MARK: Frameworks
 import UIKit
 import Firebase
 
+// MARK: Class Declaration
 class ForgotPasswordViewController: UIViewController, UITextFieldDelegate {
     
-    @IBOutlet weak var logoImage: UIImageView!
-    @IBOutlet weak var emailForgotPasswordTextField: UITextField!
+    // MARK: Constants and Variables
     let currentUser = CurrentUser()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        ImageService.cacheImage(imageView: logoImage, urlString: "https://firebasestorage.googleapis.com/v0/b/shutappios.appspot.com/o/LogoImage%2FShutAppLogo.jpg?alt=media&token=13216931-418f-486a-9702-2985b262ab08") { (name, image, error)  in
-            print("done")
-        }
-        self.emailForgotPasswordTextField.delegate = self
-        
-    }
+    // MARK: IBOutlets
+    @IBOutlet weak var logoImage: UIImageView!
+    @IBOutlet weak var emailForgotPasswordTextField: UITextField!
     
+    // MARK: IBActions
     // Handling a forgot password using an alert to communicate with the user
     @IBAction func forgotPasswordButton(_ sender: UIButton)  {
         let auth = Auth.auth()
@@ -41,6 +38,13 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-    
+    // MARK: Main Program
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        ImageService.cacheImage(imageView: logoImage, urlString: "https://firebasestorage.googleapis.com/v0/b/shutappios.appspot.com/o/LogoImage%2FShutAppLogo.jpg?alt=media&token=13216931-418f-486a-9702-2985b262ab08") { (name, image, error)  in
+            print("done")
+        }
+        self.emailForgotPasswordTextField.delegate = self
+    }
 }
 

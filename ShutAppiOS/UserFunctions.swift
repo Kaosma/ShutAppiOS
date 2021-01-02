@@ -6,14 +6,18 @@
 //  Copyright © 2020 ShutApp. All rights reserved.
 //
 
+// MARK: Frameworks
 import Foundation
 import Firebase
 
+// MARK: Class Declaration
 class UserFunctions {
     
+    // MARK: Constants and Variables
     let db = Firestore.firestore()
     let currentUser = CurrentUser()
     
+    // MARK: Functions
     // Change the current user's username
     func changeUsername(newName name: String, usernameTextField textField: UITextField?) {
         if let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest() {
@@ -47,6 +51,7 @@ class UserFunctions {
             }
         }
     }
+    
     // Set my user as contact to the added contact
     func setMyUserAsContact(contactUserEmail contactEmail: String, conversationId conversation: String) {
         self.db.collection("users").document(contactEmail).collection("contacts").document(currentUser.email).setData(["id" : currentUser.id as String,
@@ -105,6 +110,7 @@ class UserFunctions {
         }
     }
 }
+
 
 // Extra functions (Not used yet)
 extension UserFunctions {

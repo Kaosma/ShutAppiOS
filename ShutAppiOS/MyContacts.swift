@@ -6,20 +6,23 @@
 //  Copyright © 2020 ShutApp. All rights reserved.
 //
 
+// MARK: Frameworks
 import Foundation
 import Firebase
 
-// Class containing the logged in user's contacts
+// MARK: Class Declaration
 class MyContacts {
+    
+    // MARK: Constants and Variables
     let db = Firestore.firestore()
     let currentUser = CurrentUser()
-    var filteredContacts : [Contact] = []
-    var contacts : [Contact] = []
+    var filteredContacts = [Contact]()
+    var contacts = [Contact]()
     var latestMessages = [String:String]()
     var filter: Bool = false
     
     
-    
+    // MARK: Functions
     // Filtering the contacts when using the SearchBar
     func filterContacts() {
         filteredContacts = []

@@ -6,16 +6,21 @@
 //  Copyright © 2020 ShutApp. All rights reserved.
 //
 
+// MARK: Frameworks
 import Foundation
 import Firebase
 import CryptoSwift
 
+// MARK: Class Declaration
 class MyMessages {
+    
+    // MARK: Constants and Variables
     let db = Firestore.firestore()
     let currentUser = CurrentUser()
     let currentUserSender = Sender(senderId: CurrentUser().email, displayName: CurrentUser().username, senderEmail: CurrentUser().email)
     var messages = [Message]()
     
+    // MARK: Chat Functions
     // Loading the messages from the database
     func getMessagesFromDatabase(collection collectionView: UICollectionView, sender senderUser: Sender) {
         let collection = db.collection("conversations").document(senderUser.senderId).collection("messages")
@@ -49,6 +54,7 @@ class MyMessages {
         }
     }
     
+    // (Not used ATM) Checks if you exist as a contact for the user you want to chat with
     func myUserInContacts(sender senderUser: Sender) -> Bool {
         let docRef = db.collection("users").document(senderUser.senderEmail).collection("contacts").document(currentUser.email)
         var exists = false
@@ -64,31 +70,28 @@ class MyMessages {
         }
         return exists
     }
+    
     // Adding a message from the currentUser to the "messages" collection
     func sendMessage(collection collectionView: UICollectionView, sender senderUser: Sender, messageBody body: String) {
-        //if myUserInContacts(sender: senderUser) {
-            let collection = db.collection("conversations").document(senderUser.senderId).collection("messages")
-            collection.document().setData([
-                "body": body,
-                "sender": currentUser.email,
-                "date": Date().timeIntervalSince1970
-            ]) { (error) in
-                if let e = error {
-                    print()
-                    print(e)
-                } else {
-                    print()
-                    print("Message Successfully Sent!")
-                    if let aes = try? AES(key: "1234567890123456", iv: "abdefdsrfjdirogf"), let aesE = try? aes.encrypt(Array(body.utf8)) {
-                           print("AES encrypted: \(aesE)")
-                           let aesD = try? aes.decrypt(aesE)
-                           let decrypted = String(bytes: aesD!, encoding: .utf8)
-                           print("AES decrypted: \(String(describing: decrypted))")
-                    }
+        let collection = db.collection("conversations").document(senderUser.senderId).collection("messages")
+        collection.document().setData([
+            "body": body,
+            "sender": currentUser.email,
+            "date": Date().timeIntervalSince1970
+        ]) { (error) in
+            if let e = error {
+                print()
+                print(e)
+            } else {
+                print()
+                print("Message Successfully Sent!")
+                if let aes = try? AES(key: "1234567890123456", iv: "abdefdsrfjdirogf"), let aesE = try? aes.encrypt(Array(body.utf8)) {
+                       print("AES encrypted: \(aesE)")
+                       let aesD = try? aes.decrypt(aesE)
+                       let decrypted = String(bytes: aesD!, encoding: .utf8)
+                       print("AES decrypted: \(String(describing: decrypted))")
                 }
             }
-        //} else {
-            //print("You do not exist in the other user's contacts")
-        //}
+        }
     }
 }

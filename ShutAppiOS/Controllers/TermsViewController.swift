@@ -6,19 +6,18 @@
 //  Copyright © 2020 ShutApp. All rights reserved.
 //
 
+// MARK: Frameworks
 import UIKit
 
+// MARK: Class Declaration
 class TermsViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    //Close Pop U
+    // Terms Pop-up
     @IBAction func closeTermsPopUp(_ sender: UIButton) {
         dismiss (animated: true, completion: nil)
-        
     }
-
-
 }

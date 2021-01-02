@@ -14,53 +14,49 @@
 //  Copyright © 2020 ShutApp. All rights reserved.
 //
 
+// MARK: Frameworks
 import UIKit
 import Firebase
 
+// MARK: Class Declaration
 class SignUpViewController: UIViewController {
     
+    // MARK: Constants and Variables
+    let db = Firestore.firestore()
+    var imagePicker: UIImagePickerController!
+    var contacts = [Contact]()
+    var confirmButtonSelected = false
+    
+    // MARK: IBOutlets
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var tapTochangeeProfileImage: UIButton!
     @IBOutlet weak var profileImageView: UIImageView!
-    var contacts : [Contact] = []
     @IBOutlet weak var confirmTermsButton: UIButton!
-    
-    var confirmButtonSelected = false
-    var profileImageService: ImageService!
-    
-    var imagePicker: UIImagePickerController!
-    
-    // Database initialization
-    let db = Firestore.firestore()
-   
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
+    // MARK: IBActions
+    // Shows the terms of ShutApp
     @IBAction func viewTermsButton(_ sender: UIButton) {
         self.performSegue(withIdentifier: "ViewTermsSegue", sender: self)
-
     }
     
-    //Confirm ShutApps Terms by press a button
+    // Allows checking a box to accept the terms of ShutApp
     @IBAction func confirmTermsButtonAction(_ sender: UIButton) {
-        
-        if confirmButtonSelected
-        {
+        if confirmButtonSelected {
             confirmTermsButton.setImage( UIImage(named: "check_box_outline_blank-24px"), for: .normal)
             confirmButtonSelected = false
-           
-        }else {
+        } else {
             confirmTermsButton.setImage( UIImage(named: "check_box-24px"), for: .normal)
             confirmButtonSelected = true
         }
     }
     
-    // Signing up a user with e-mail and password
+    // Creates a user with email, password, username and profilePictureURL
     @IBAction func signUpButton(_ sender: UIButton) {
-      
         if let newEmail = emailTextField.text, let newPassword = passwordTextField.text,
            let confirmPassword = confirmPasswordTextField.text, let userName = usernameTextField.text,
            let image = profileImageView.image
@@ -73,35 +69,28 @@ class SignUpViewController: UIViewController {
 
                         return
                     }
-                    
-                    //Uppload the profile to firebase Storage
-           
-                        guard let authResult = authResult else { return }
-                        let user = authResult.user
-                        let changeRequest = user.createProfileChangeRequest()
-                        changeRequest.displayName = userName
-                        changeRequest.photoURL =
-                            NSURL(string: "https://firebasestorage.googleapis.com/v0/b/shutappios.appspot.com/o/LogoImage%2FShutAppLogo.jpg?alt=media&token=13216931-418f-486a-9702-2985b262ab08") as URL?
-    
-                       // self.profileImageService.saveImage(profileImageURL: url!) { success in
-                        //}
-                        
-                        changeRequest.commitChanges { (error) in
-                            if let e = error {
-                                print()
-                                print(e)
-
-                            }
+                    // Upload the profile picture to firebase Storage and save important user information
+                    guard let authResult = authResult else { return }
+                    let user = authResult.user
+                    let changeRequest = user.createProfileChangeRequest()
+                    let id = user.uid
+                    guard let email = user.email else { return }
+                    changeRequest.displayName = userName
+                    changeRequest.photoURL =
+                        NSURL(string: "profileImages/\(id)ProfileImage.jpg") as URL?
+                    changeRequest.commitChanges { (error) in
+                        if let e = error {
+                            print()
+                            print(e)
                         }
-                        
-                        
-                        let values = ["id": user.uid, "terms": self.confirmButtonSelected as Any ] as [String : Any]
-                        self.db.collection("users").document(user.email!).setData(values as Any as! [String : Any]) // <------------
-                   
-                    //Save the data to firestore
+                        ImageService.uploadProfileImageToStorage(selectedImage: image, userId: id)
+                    }
                     
-           
+                    // Save the user to Firebase
+                    let values = ["id": user.uid, "terms": self.confirmButtonSelected as Any ] as [String : Any]
+                    self.db.collection("users").document(email).setData(values as Any as! [String : Any])
                     
+                    // Alerting the user that they are now a member of ShutApp
                     let alert = UIAlertController(title: "Done", message: "You are now a member of ShutApp!", preferredStyle: UIAlertController.Style.alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { action in self.performSegue(withIdentifier: "loginAfterSignUpSegue", sender: self) }))
                     self.present(alert, animated: true, completion: nil)
@@ -110,13 +99,12 @@ class SignUpViewController: UIViewController {
         }
     }
     
-    //open Image picker
+    // Open image picker
     @objc func openImagePicker(sender: Any) {
         self.present(imagePicker, animated: true, completion: nil)
     }
     
-
-    // Main program
+    // MARK: Main Program
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -138,7 +126,8 @@ class SignUpViewController: UIViewController {
     }
 }
 
-// Image Picker Controller Functions
+// MARK: Class Extensions
+// Handling the UIImagePicker
 extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
