@@ -22,11 +22,11 @@ class MyMessages {
     
     // MARK: Chat Functions
     // Loading the messages from the database
-    func getMessagesFromDatabase(collection collectionView: UICollectionView, sender senderUser: Sender) {
-        let collection = db.collection("conversations").document(senderUser.senderId).collection("messages")
+    func getMessagesFromDatabase(collectionView collection: UICollectionView, senderUser sender: Sender) {
+        let collectionRef = db.collection("conversations").document(sender.senderId).collection("messages")
         
         // Reading from the "messages" Collection and ordering them by date
-        collection.order(by: "date").addSnapshotListener { (querySnapshot, error) in
+        collectionRef.order(by: "date").addSnapshotListener { (querySnapshot, error) in
             self.messages = []
             if let e = error {
                 print()
@@ -43,14 +43,14 @@ class MyMessages {
                             
                         // Else create a leftside Message
                         } else {
-                            self.messages.append(Message(sender: senderUser, messageId: document.documentID, sentDate: Date().addingTimeInterval(messageDate), kind: .text(messageBody)))
+                            self.messages.append(Message(sender: sender, messageId: document.documentID, sentDate: Date().addingTimeInterval(messageDate), kind: .text(messageBody)))
                         }
                         
                         // Reload the MessageCollectionView and scroll to latest message
                         DispatchQueue.main.async {
-                            collectionView.reloadData()
+                            collection.reloadData()
                             let indexPath = IndexPath(row: 0, section: self.messages.count - 1)
-                            collectionView.scrollToItem(at: indexPath, at: .top, animated: false)
+                            collection.scrollToItem(at: indexPath, at: .top, animated: false)
                         }
                     }
                 }
@@ -59,8 +59,8 @@ class MyMessages {
     }
     
     // (Not used ATM) Checks if you exist as a contact for the user you want to chat with
-    func myUserInContacts(sender senderUser: Sender) -> Bool {
-        let docRef = db.collection("users").document(senderUser.senderEmail).collection("contacts").document(currentUser.email)
+    func myUserInContacts(senderUser sender: Sender) -> Bool {
+        let docRef = db.collection("users").document(sender.senderEmail).collection("contacts").document(currentUser.email)
         var exists = false
         
         docRef.getDocument { (document, error) in
@@ -78,10 +78,10 @@ class MyMessages {
     }
     
     // Adding a message from the currentUser to the "messages" collection
-    func sendMessage(collection collectionView: UICollectionView, sender senderUser: Sender, messageBody body: String) {
+    func sendMessage(collectionView collection: UICollectionView, senderUser sender: Sender, messageBody body: String) {
         let date = Date().timeIntervalSince1970
-        let collection = db.collection("conversations").document(senderUser.senderId).collection("messages")
-        collection.document().setData([
+        let collectionRef = db.collection("conversations").document(sender.senderId).collection("messages")
+        collectionRef.document().setData([
             "body": body,
             "sender": currentUser.email,
             "date": date ]) { (error) in
@@ -93,7 +93,7 @@ class MyMessages {
             } else {
                 print()
                 print("Message Successfully Sent!")
-                self.changeLatestMessageDate(senderEmail: senderUser.senderEmail, dateSent: date)
+                self.changeLatestMessageDate(senderEmail: sender.senderEmail, dateSent: date)
                 if let aes = try? AES(key: "1234567890123456", iv: "abdefdsrfjdirogf"), let aesE = try? aes.encrypt(Array(body.utf8)) {
                     
                     print()

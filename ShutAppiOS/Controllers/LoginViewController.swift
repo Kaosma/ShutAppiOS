@@ -16,6 +16,7 @@ class LoginViewController: UIViewController {
     // MARK: Constants and Variables
     var contacts = [Contact]()
     var currentUser = CurrentUser()
+    var loginDirectly = false
     
     // MARK: IBOutlets
     @IBOutlet weak var loginErrorLabel: UILabel!
@@ -41,8 +42,7 @@ class LoginViewController: UIViewController {
     }
     
     // MARK: Other Functions
-    func checkUserInfo(){
-        
+    func checkUserInfo() {
         if currentUser.id != "" {
             self.performSegue(withIdentifier: "GoToContactsScreen", sender: self)
         }
@@ -58,9 +58,22 @@ class LoginViewController: UIViewController {
         ImageService.cacheImage(imageView: logoImage, urlString: "https://firebasestorage.googleapis.com/v0/b/shutappios.appspot.com/o/LogoImage%2FShutAppLogo.jpg?alt=media&token=13216931-418f-486a-9702-2985b262ab08") { (name, image, error)  in
             print("done")
         }
-        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        checkUserInfo()
+        checkInternet()
+    }
+
+    
+
+    //Use CheckInternetConnection and alert if you don't have any internet
+
+    func checkInternet() {
+
         if CheckInternetConnection.shared.isConnected{
             print("You're connected")
+            
         } else {
             let alert = UIAlertController(title: "Alert", message: "No internet", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
@@ -68,10 +81,6 @@ class LoginViewController: UIViewController {
             print("you are not conntected to internet")
             return
         }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        checkUserInfo()
     }
 }
 

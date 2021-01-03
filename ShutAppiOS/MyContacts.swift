@@ -21,7 +21,6 @@ class MyContacts {
     var latestMessages = [String:String]()
     var filter: Bool = false
     
-    
     // MARK: Functions
     // Filtering the contacts when using the SearchBar
     func filterContacts() {
@@ -30,7 +29,7 @@ class MyContacts {
     }
     
     // Add user as a new contact
-    func addContact(document doc: DocumentSnapshot, contactEmail email: String, contactUsername userName: String, updatingTableView tableView: UITableView) {
+    func addContact(document doc: DocumentSnapshot, contactEmail email: String, contactUsername username: String, updatingTableView tableView: UITableView) {
         
         filter = false
         
@@ -46,13 +45,13 @@ class MyContacts {
                 // Add contact to the user's contacts in the database
                 let contactsCollection = self.db.collection("users").document(currentUser.email).collection("contacts")
                 contactsCollection.document(email).setData(["id" : contactId as String,
-                                                            "name" : userName as String,
+                                                            "name" : username as String,
                                                             "conversation" : conversationId as String])
-                let newContact = Contact(username: userName, email: email, id: contactId, conversationId: conversationId, latestMessageDate: 0.0)
+                let newContact = Contact(username: username, email: email, id: contactId, conversationId: conversationId, latestMessageDate: 0.0)
                 filteredContacts.append(newContact)
                 getLatestMessages(updatingTableView: tableView)
                 // Add my user as contact to the added contact
-                UserFunctions().setMyUserAsContact(contactUserEmail: email, conversationId: conversationId)
+                UserFunctions().setMyUserAsContact(contactEmail: email, conversationId: conversationId)
             }
         }
     }
@@ -60,9 +59,9 @@ class MyContacts {
     // Change name of contact
     func changeContactName(contactEmail email: String, newName name: String, updatingTableView tableView: UITableView) {
         
-        let updateReference = self.db.collection("users").document(self.currentUser.email).collection("contacts").document(email)
+        let updateRef = self.db.collection("users").document(self.currentUser.email).collection("contacts").document(email)
         
-        updateReference.getDocument { (document, err) in
+        updateRef.getDocument { (document, err) in
             if let err = err {
                 print(err.localizedDescription)
                 
@@ -135,9 +134,9 @@ class MyContacts {
     func getLatestMessages(updatingTableView tableView: UITableView) {
         
         for contact in filteredContacts {
-            let collection = db.collection("conversations").document(contact.conversationId).collection("messages")
+            let collectionRef = db.collection("conversations").document(contact.conversationId).collection("messages")
             // Reading from the "messages" Collection and ordering them by date
-            collection.order(by: "date").addSnapshotListener { (documents, error) in
+            collectionRef.order(by: "date").addSnapshotListener { (documents, error) in
                 
                 if let e = error {
                     print()
@@ -166,9 +165,9 @@ class MyContacts {
     // Loading the contacts from the database
     func getContactsFromDatabase(updatingTableView tableView: UITableView) {
         
-        let collection = db.collection("users").document(currentUser.email).collection("contacts")
+        let collectionRef = db.collection("users").document(currentUser.email).collection("contacts")
         
-        collection.addSnapshotListener { (querySnapshot, error) in
+        collectionRef.addSnapshotListener { (querySnapshot, error) in
             self.contacts = []
             if let e = error {
                 print()

@@ -59,8 +59,8 @@ class UserFunctions {
     }
     
     // Set my user as contact to the added contact
-    func setMyUserAsContact(contactUserEmail contactEmail: String, conversationId conversation: String) {
-        self.db.collection("users").document(contactEmail).collection("contacts").document(currentUser.email)
+    func setMyUserAsContact(contactEmail email: String, conversationId conversation: String) {
+        self.db.collection("users").document(email).collection("contacts").document(currentUser.email)
             .setData(["id" : currentUser.id as String,
                       "name" : currentUser.username as String,
                       "conversation" : conversation as String])
@@ -68,8 +68,7 @@ class UserFunctions {
     
     // Send a reset password action to the current logged in user
     func resetPassWord() {
-        let auth = Auth.auth()
-        auth.sendPasswordReset(withEmail: currentUser.email) { (error) in
+        Auth.auth().sendPasswordReset(withEmail: currentUser.email) { (error) in
             
             if let e = error {
                 print()
@@ -99,25 +98,37 @@ class UserFunctions {
     func deleteUser() {
         
         if let user = Auth.auth().currentUser {
-            
-            let docRef = self.db.collection("users").document(user.email!)
-            docRef.delete { error in
+            if let email = user.email {
                 
-                if let e = error {
-                    print()
-                    print(e)
+                let storageRef = Storage.storage().reference()
+                storageRef.child("profileImages/\(user.uid)ProfileImage.jpg").delete { error in
                     
-                } else {
-                    user.delete { error in
+                    if let e = error {
+                        print()
+                        print(e)
+                    } else {
+                        print()
+                        print("Profile Image Successfully Deleted!")
+                    }
+                }
+                self.db.collection("users").document(email).delete { error in
+                    
+                    if let e = error {
+                        print()
+                        print(e)
                         
-                        if let e = error {
-                            print()
-                            print(e)
+                    } else {
+                        user.delete { error in
                             
-                        } else {
-                            print()
-                            print("User Successfully Deleted!")
-                            self.signOutCurrentUser()
+                            if let e = error {
+                                print()
+                                print(e)
+                                
+                            } else {
+                                print()
+                                print("User Successfully Deleted!")
+                                self.signOutCurrentUser()
+                            }
                         }
                     }
                 }

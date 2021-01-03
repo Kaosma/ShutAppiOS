@@ -94,7 +94,7 @@ class ContactsViewController: UIViewController {
     
     // MARK: Other Functions
     // Load the user's contacts into the TableView
-    func loadContacts(willFilter: Bool){
+    func loadContacts(){
         contactController.filter = true
         contactController.getContactsFromDatabase(updatingTableView: contactTableView)
     }
@@ -104,7 +104,7 @@ class ContactsViewController: UIViewController {
     // MARK: Main Program
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadContacts(willFilter:true)
+        loadContacts()
         
     }
 }

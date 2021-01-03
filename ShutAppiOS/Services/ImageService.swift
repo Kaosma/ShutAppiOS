@@ -34,7 +34,9 @@ class ImageService {
                     downloadedImage = UIImage(data: data)
                 }
                 if downloadedImage != nil {
-                    imageView.image = downloadedImage
+                    DispatchQueue.main.async {
+                        imageView.image = downloadedImage
+                    }
                 }
             }.resume()
         }
@@ -55,8 +57,7 @@ class ImageService {
                 print("image from cache")
                 completion(imageKey, image, nil)
                 return
-            }
-            
+            } else {
                 URLSession.shared.dataTask(with: url) { (data, response, error) in
                     
                     if let e = error {
@@ -72,7 +73,8 @@ class ImageService {
                             }
                         }
                     }
-            }.resume()
+                }.resume()
+            }
         }
     }
     
