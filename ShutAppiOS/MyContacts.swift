@@ -26,7 +26,7 @@ class MyContacts {
     // Filtering the contacts when using the SearchBar
     func filterContacts() {
         filteredContacts = []
-        filteredContacts = contacts
+        filteredContacts = bubble(arr: &contacts)
     }
     
     // Add user as a new contact
@@ -48,9 +48,9 @@ class MyContacts {
                 contactsCollection.document(email).setData(["id" : contactId as String,
                                                             "name" : userName as String,
                                                             "conversation" : conversationId as String])
-                let newContact = Contact(username: userName, email: email, id: contactId, conversationId: conversationId)
+                let newContact = Contact(username: userName, email: email, id: contactId, conversationId: conversationId, latestMessageDate: 0.0)
                 filteredContacts.append(newContact)
-                
+                getLatestMessages(updatingTableView: tableView)
                 // Add my user as contact to the added contact
                 UserFunctions().setMyUserAsContact(contactUserEmail: email, conversationId: conversationId)
             }
@@ -76,6 +76,7 @@ class MyContacts {
             }
         }
     }
+    
     // Delete contact
     func deleteContact(indexPath index: IndexPath, updatingTableView tableView: UITableView) {
         
@@ -133,9 +134,8 @@ class MyContacts {
     // Getting the latest message sent in a conversation with a user
     func getLatestMessages(updatingTableView tableView: UITableView) {
         
-        for i in contacts {
-            
-            let collection = db.collection("conversations").document(i.conversationId).collection("messages")
+        for contact in filteredContacts {
+            let collection = db.collection("conversations").document(contact.conversationId).collection("messages")
             // Reading from the "messages" Collection and ordering them by date
             collection.order(by: "date").addSnapshotListener { (documents, error) in
                 
@@ -148,9 +148,9 @@ class MyContacts {
                         if index != 0 {
                             
                             if let document = documents?.documents[index-1] {
-                                if let messageBody = document.data()["body"] as? String{
-                                    self.latestMessages.updateValue(messageBody, forKey: i.email)
-                                    self.contacts = self.bubble(arr: &self.contacts)
+                                if let messageBody = document.data()["body"] as? String {
+                                    self.latestMessages.updateValue(messageBody, forKey: contact.email)
+                                    self.filteredContacts = self.bubble(arr: &self.filteredContacts)
                                 }
                             }
                             
@@ -178,19 +178,32 @@ class MyContacts {
                 for document in querySnapshot!.documents {
                     
                     if let contactID = document.data()["id"] as? String, let contactUsername = document.data()["name"] as? String, let contactConversation = document.data()["conversation"] as? String {
-                        
                         let contactEmail = document.documentID
-                        let contact = Contact(username: contactUsername, email: contactEmail, id: contactID, conversationId: contactConversation)
-                        self.contacts.append(contact)
                         
-                        if self.filter {
-                            self.filterContacts()
+                        if let contactMessage = document.data()["latestMessageDate"] as? Double {
+                            
+                            let contact = Contact(username: contactUsername, email: contactEmail, id: contactID, conversationId: contactConversation, latestMessageDate: contactMessage)
+                            self.contacts.append(contact)
+                            
+                            if self.filter {
+                                self.filterContacts()
+                            }
+                            tableView.reloadData()
+                            
+                        } else {
+                            
+                            let contactMessage = 0.0
+                            let contact = Contact(username: contactUsername, email: contactEmail, id: contactID, conversationId: contactConversation, latestMessageDate: contactMessage)
+                            self.contacts.append(contact)
+                            
+                            if self.filter {
+                                self.filterContacts()
+                            }
+                            tableView.reloadData()
                         }
-                        tableView.reloadData()
-                        
-                        DispatchQueue.main.async {
-                            self.getLatestMessages(updatingTableView: tableView)
-                        }
+                    }
+                    DispatchQueue.main.async {
+                        self.getLatestMessages(updatingTableView: tableView)
                     }
                 }
             }
@@ -199,19 +212,11 @@ class MyContacts {
     
     //Bubble sort function
     func bubble(arr: inout [Contact]) -> [Contact] {
-        
         for i in (1..<arr.count).reversed() {
-            
             for j in 0..<i where arr[j].latestMessageDate < arr[j + 1].latestMessageDate {
                 arr.swapAt(j, j + 1)
-                
-                for k in arr {
-                    print()
-                    print(k.username," + ", k.latestMessageDate)
-                }
             }
         }
-        
         return arr
     }
 }

@@ -79,12 +79,12 @@ class MyMessages {
     
     // Adding a message from the currentUser to the "messages" collection
     func sendMessage(collection collectionView: UICollectionView, sender senderUser: Sender, messageBody body: String) {
-        
+        let date = Date().timeIntervalSince1970
         let collection = db.collection("conversations").document(senderUser.senderId).collection("messages")
         collection.document().setData([
             "body": body,
             "sender": currentUser.email,
-            "date": Date().timeIntervalSince1970 ]) { (error) in
+            "date": date ]) { (error) in
                 
             if let e = error {
                 print()
@@ -93,7 +93,7 @@ class MyMessages {
             } else {
                 print()
                 print("Message Successfully Sent!")
-                
+                self.changeLatestMessageDate(senderEmail: senderUser.senderEmail, dateSent: date)
                 if let aes = try? AES(key: "1234567890123456", iv: "abdefdsrfjdirogf"), let aesE = try? aes.encrypt(Array(body.utf8)) {
                     
                     print()
@@ -102,6 +102,31 @@ class MyMessages {
                     let decrypted = String(bytes: aesD!, encoding: .utf8)
                     print("AES decrypted: \(String(describing: decrypted))")
                 }
+            }
+        }
+    }
+    
+    // Change latest message date for the two communicating users
+    func changeLatestMessageDate(senderEmail sender: String, dateSent date: TimeInterval) {
+        let updateReference = self.db.collection("users").document(currentUser.email).collection("contacts").document(sender)
+        
+        updateReference.getDocument { (document, err) in
+            if let err = err {
+                print(err.localizedDescription)
+                
+            } else {
+                document?.reference.updateData([ "latestMessageDate": date ])
+            }
+        }
+        
+        let otherUpdateReference = self.db.collection("users").document(sender).collection("contacts").document(currentUser.email)
+        
+        otherUpdateReference.getDocument { (document, err) in
+            if let err = err {
+                print(err.localizedDescription)
+                
+            } else {
+                document?.reference.updateData([ "latestMessageDate": date ])
             }
         }
     }
