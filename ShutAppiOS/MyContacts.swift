@@ -184,22 +184,17 @@ class MyContacts {
                             let contact = Contact(username: contactUsername, email: contactEmail, id: contactID, conversationId: contactConversation, latestMessageDate: contactMessage)
                             self.contacts.append(contact)
                             
-                            if self.filter {
-                                self.filterContacts()
-                            }
-                            tableView.reloadData()
-                            
                         } else {
                             
                             let contactMessage = 0.0
                             let contact = Contact(username: contactUsername, email: contactEmail, id: contactID, conversationId: contactConversation, latestMessageDate: contactMessage)
                             self.contacts.append(contact)
-                            
-                            if self.filter {
-                                self.filterContacts()
-                            }
-                            tableView.reloadData()
                         }
+                        
+                        if self.filter {
+                            self.filterContacts()
+                        }
+                        tableView.reloadData()
                     }
                     DispatchQueue.main.async {
                         self.getLatestMessages(updatingTableView: tableView)
